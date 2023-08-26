@@ -20,17 +20,14 @@ const Sidebar = () => {
   }, [])
 
   return (
-    <div className='sm:w-full sm:max-w-[18rem]'>
+    <>
       {/* <input
-          type='checkbox'
-          id='sidebar-mobile-fixed'
-          className='sidebar-state'
-        />
-        <label
-          htmlFor='sidebar-mobile-fixed'
-          className='sidebar-overlay'
-        ></label> */}
-      <aside className='sidebar sidebar-fixed-left sidebar-mobile h-full justify-start max-sm:fixed max-sm:-translate-x-full'>
+        type='checkbox'
+        id='sidebar-mobile-fixed'
+        className='sidebar-state'
+      />
+      <label htmlFor='sidebar-mobile-fixed' className='sidebar-overlay'></label> */}
+      <aside className='sidebar sidebar-mobile max-h-screen justify-start max-sm:fixed max-sm:-translate-x-full'>
         <section className='sidebar-title items-center p-4'>
           <svg
             fill='none'
@@ -416,7 +413,7 @@ const Sidebar = () => {
             </label>
           </div>
         </div> */}
-    </div>
+    </>
   )
 }
 

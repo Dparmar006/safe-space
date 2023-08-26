@@ -19,7 +19,7 @@ export default function SignIn () {
   }, [])
 
   return (
-    <section className='h-screen flex items-center pl-52'>
+    <section className='w-full flex items-center justify-center h-full'>
       <form className='mx-auto flex w-full max-w-lg flex-col rounded-xl border border-border bg-backgroundSecondary p-4 sm:p-20 items-center'>
         <div className='flex w-full flex-col gap-2'>
           <div className='flex w-full flex-col gap-2'>
