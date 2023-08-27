@@ -2,6 +2,7 @@ import Sidebar from '@/components/layouts/Sidebar'
 import './globals.css'
 import { Inter } from 'next/font/google'
 import AuthProvider from '@/components/auth/AuthProvider'
+import Chat from '@/components/chats/Chat'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,6 +20,9 @@ export default function RootLayout ({ children }) {
           <main className='p-4 w-full max-h-screen overflow-y-auto'>
             {children}
           </main>
+          <div className='w-1/2'>
+            <Chat />
+          </div>
         </AuthProvider>
       </body>
     </html>
