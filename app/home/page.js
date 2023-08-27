@@ -6,7 +6,11 @@ const Home = () => {
   return (
     <section>
       <CreatePost />
-      {/* <Post /> */}
+      <Post />
+      <Post />
+      <Post />
+      <Post />
+      <Post />
     </section>
   )
 }

@@ -16,7 +16,9 @@ export default function RootLayout ({ children }) {
       <body className={`${inter.className} min-h-screen h-full flex`}>
         <AuthProvider>
           <Sidebar />
-          <main className='p-4 w-full'>{children}</main>
+          <main className='p-4 w-full max-h-screen overflow-y-auto'>
+            {children}
+          </main>
         </AuthProvider>
       </body>
     </html>

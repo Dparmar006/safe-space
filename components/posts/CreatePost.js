@@ -30,7 +30,7 @@ const CreatePost = () => {
       <div className='flex justify-end pt-4'>
         <button className='btn btn-primary btn-sm'>Post</button>
       </div>
-      <div class='divider h-0'></div>
+      <div className='divider h-0'></div>
     </>
   )
 }
