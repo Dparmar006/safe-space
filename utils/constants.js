@@ -1,0 +1,6 @@
+export const MESSAGE_TYPES_LIST = ['SENT', 'RECEIVED', 'DATE']
+export const MESSAGE_TYPES = {
+  SENT: 'SENT',
+  RECEIVED: 'RECEIVED',
+  DATE: 'DATE'
+}
