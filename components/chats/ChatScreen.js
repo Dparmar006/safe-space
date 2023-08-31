@@ -1,4 +1,6 @@
-import React from 'react'
+'use client'
+
+import React, { useEffect, useState } from 'react'
 import { LexicalComposer } from '@lexical/react/LexicalComposer'
 import { PlainTextPlugin } from '@lexical/react/LexicalPlainTextPlugin'
 import { ContentEditable } from '@lexical/react/LexicalContentEditable'
@@ -6,7 +8,9 @@ import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin'
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin'
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary'
 import Message from './Message'
-import { MESSAGE_TYPES } from '@/utils/constants'
+import { CHAT_EVENTS, MESSAGE_TYPES } from '@/utils/constants'
+import { socket } from '@/utils/socket'
+import { useSession } from 'next-auth/react'
 
 // Editor updater
 function onError (error) {
@@ -17,11 +21,41 @@ const theme = {
 }
 
 const ChatScreen = () => {
+  const session = useSession()
+  const [messages, setMessages] = useState([])
+  const loggedinUser = session?.data?.user
   const initialConfig = {
     namespace: 'chat-message',
     theme,
     onError
   }
+
+  const initializeChatForUser = async () => {
+    socket.emit(CHAT_EVENTS.USER_REQUESTED_TO_JOIN, { username: 'nayra' })
+  }
+
+  const disconnectUser = () => {
+    socket.disconnect()
+    socket.off(CHAT_EVENTS.MESSAGE_RECEIVED)
+  }
+
+  const sendMessage = () => {
+    const message = document.getElementById('message').value
+    const to = 'dixit'
+    socket.emit(CHAT_EVENTS.MESSAGE_SENT_REQUEST, { message }, to)
+  }
+
+  useEffect(() => {
+    initializeChatForUser()
+    socket.on(CHAT_EVENTS.MESSAGE_RECEIVED, response => {
+      const { message } = response
+      setMessages(prev => [message, ...prev])
+    })
+    return () => {
+      disconnectUser()
+    }
+  }, [])
+
   return (
     <aside className='flex flex-col min-h-screen max-h-screen overflow-y-auto justify-between pb-2'>
       <div className='flex gap-4 items-center bg-gray-1 hover:bg-gray-2 transition-colors p-2 select-none cursor-pointer mb-2'>
@@ -42,13 +76,9 @@ const ChatScreen = () => {
       <div className='px-2 flex flex-col h-full flex-1'>
         {/* messages */}
         <div className='grid max-h-[78dvh] overflow-y-auto my-2 h-[80dvh] min-h-[72dvh] items-start'>
-          <Message type={MESSAGE_TYPES.DATE}>Hello there, How are you?</Message>
-          <Message>Hello there, How are you?</Message>
-          <Message type={MESSAGE_TYPES.SENT}>I'm fine, thank you</Message>
-          <Message>Hello there, How are you?</Message>
-          <Message type={MESSAGE_TYPES.SENT}>I'm fine, thank you</Message>
-          <Message>Hello there, How are you?</Message>
-          <Message type={MESSAGE_TYPES.SENT}>I'm fine, thank you</Message>
+          {messages.map(message => (
+            <Message type={MESSAGE_TYPES.RECEIVED}>{message}</Message>
+          ))}
         </div>
 
         <LexicalComposer initialConfig={initialConfig}>
