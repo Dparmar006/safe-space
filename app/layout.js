@@ -3,6 +3,7 @@ import './globals.css'
 import { Inter } from 'next/font/google'
 import AuthProvider from '@/components/auth/AuthProvider'
 import Chat from '@/components/chats/Chat'
+import { Toaster } from 'react-hot-toast'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -15,6 +16,7 @@ export default function RootLayout ({ children }) {
   return (
     <html lang='en'>
       <body className={`${inter.className} min-h-screen h-full flex`}>
+        <Toaster />
         <AuthProvider>
           <Sidebar />
           <main className='p-4 w-full max-h-screen overflow-y-auto'>

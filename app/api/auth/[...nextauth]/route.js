@@ -2,14 +2,35 @@ import User from '@/models/user'
 import { connectToDB } from '@/utils/database'
 import NextAuth from 'next-auth/next'
 import GoogleProvider from 'next-auth/providers/google'
+import CredentialsProvider from 'next-auth/providers/credentials'
 
 const handler = NextAuth({
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET
+    }),
+    CredentialsProvider({
+      name: 'Credentials',
+      credentials: {
+        email: {
+          label: 'Email',
+          placeholder: 'Enter your email',
+          type: 'email'
+        },
+        password: {
+          label: 'Password',
+          placeholder: 'Enter your Password',
+          type: 'password'
+        }
+      },
+      authorize: async (credentials, req) => {
+        const { password, email } = credentials
+        console.log({ password, email })
+      }
     })
   ],
+
   callbacks: {
     session: async ({ session }) => {
       try {

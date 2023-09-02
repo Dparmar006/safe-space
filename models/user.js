@@ -1,6 +1,14 @@
 const { Schema, model, models } = require('mongoose')
 
 const UserSchema = new Schema({
+  firstName: {
+    type: String,
+    required: [true, 'First name is required']
+  },
+  lastName: {
+    type: String,
+    required: [true, 'First name is required']
+  },
   email: {
     type: String,
     unique: [true, 'Email already exists'],
@@ -13,6 +21,10 @@ const UserSchema = new Schema({
   },
   image: {
     type: String
+  },
+  isOnline: {
+    type: Boolean,
+    default: false
   }
 })
 
