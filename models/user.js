@@ -26,6 +26,8 @@ const UserSchema = new Schema({
     type: Boolean,
     default: false
   }
+}, {
+  timestamps: true
 })
 
 const User = models.User || model('User', UserSchema)

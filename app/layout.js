@@ -22,7 +22,7 @@ export default function RootLayout ({ children }) {
           <main className='p-4 w-full max-h-screen overflow-y-auto'>
             {children}
           </main>
-          <div className='w-1/2'>
+          <div className='w-1/2 hidden sm:block'>
             <Chat />
           </div>
         </AuthProvider>

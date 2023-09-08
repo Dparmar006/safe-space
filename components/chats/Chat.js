@@ -8,12 +8,16 @@ const Chat = () => {
   const [room, setRoom] = useState('')
   const handleSelectRoom = selectedRoom => setRoom(selectedRoom)
 
-  return room ? (
-    <aside className='flex flex-col p-2 min-h-screen max-h-screen overflow-y-auto'>
-      <RecentMessagesList handleSelectRoom={handleSelectRoom} />
-    </aside>
-  ) : (
-    <ChatScreen />
+  return (
+    <>
+      {room ? (
+        <aside className='flex flex-col p-2 min-h-screen max-h-screen overflow-y-auto'>
+          <RecentMessagesList handleSelectRoom={handleSelectRoom} />
+        </aside>
+      ) : (
+        <ChatScreen />
+      )}
+    </>
   )
 }
 
