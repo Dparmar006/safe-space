@@ -21,7 +21,7 @@ export async function POST (req) {
       )
     }
 
-    password = bcrypt.hash(password, 12)
+    let encryptedPassword = await bcrypt.hash(password, 12)
     email = email.toLowerCase()
     username =
       username || `${firstName}${lastName}${parseInt(Math.random() * 100000)}`
@@ -29,7 +29,7 @@ export async function POST (req) {
     const createdUser = await User.create({
       ...requestBody,
       email,
-      password,
+      password: encryptedPassword,
       username
     })
     return NextResponse.json(

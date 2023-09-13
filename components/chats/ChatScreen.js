@@ -17,7 +17,8 @@ function onError (error) {
   console.error(error)
 }
 const theme = {
-  paragraph: 'textarea textarea-block max-h-24 overflow-hidden overflow-y-auto'
+  paragraph:
+    'textarea textarea-block max-h-24 overflow-hidden overflow-y-auto min-w-100'
 }
 
 const ChatScreen = () => {
@@ -56,6 +57,11 @@ const ChatScreen = () => {
     }
   }, [])
 
+  const onChange = (e, ...rest) => {
+    const { root } = e.toJSON()
+    console.log(root, { rest })
+  }
+
   return (
     <aside className='flex flex-col min-h-screen max-h-screen overflow-y-auto justify-between pb-2'>
       <div className='flex gap-4 items-center bg-gray-1 hover:bg-gray-2 transition-colors p-2 select-none cursor-pointer mb-2'>
@@ -81,20 +87,34 @@ const ChatScreen = () => {
           ))}
         </div>
 
-        <LexicalComposer initialConfig={initialConfig}>
-          <PlainTextPlugin
-            contentEditable={
-              <ContentEditable
-                style={{ outline: 'none', position: 'relative' }}
-              />
-            }
-            placeholder={
-              <div className='absolute p-3 text-slate-500 select-none pointer-events-none'></div>
-            }
-            ErrorBoundary={LexicalErrorBoundary}
-          />
-          <HistoryPlugin />
-        </LexicalComposer>
+        <div className='flex items-center gap-2'>
+          <LexicalComposer initialConfig={initialConfig}>
+            <PlainTextPlugin
+              contentEditable={
+                <ContentEditable
+                  style={{
+                    outline: 'none',
+                    position: 'relative',
+                    width: '100%'
+                  }}
+                />
+              }
+              placeholder={
+                <div className='absolute p-3 text-slate-500 select-none pointer-events-none'></div>
+              }
+              ErrorBoundary={LexicalErrorBoundary}
+            />
+            <HistoryPlugin />
+            <OnChangePlugin onChange={onChange} />
+          </LexicalComposer>
+          <button
+            type='button'
+            className='btn btn-primary btn-sm h-full max-h-full'
+            onClick={sendMessage}
+          >
+            SEND
+          </button>
+        </div>
       </div>
     </aside>
   )

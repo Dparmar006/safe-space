@@ -3,7 +3,7 @@ import { connectToDB } from '@/utils/database'
 import NextAuth from 'next-auth/next'
 import GoogleProvider from 'next-auth/providers/google'
 import CredentialsProvider from 'next-auth/providers/credentials'
-
+import bcrypt from 'bcryptjs'
 const handler = NextAuth({
   providers: [
     GoogleProvider({
@@ -11,26 +11,40 @@ const handler = NextAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET
     }),
     CredentialsProvider({
-      name: 'Credentials',
+      name: 'credentials',
       credentials: {
-        email: {
-          label: 'Email',
-          placeholder: 'Enter your email',
-          type: 'email'
-        },
-        password: {
-          label: 'Password',
-          placeholder: 'Enter your Password',
-          type: 'password'
-        }
+        // email: {
+        //   label: 'Email',
+        //   placeholder: 'Enter your email',
+        //   type: 'email'
+        // },
+        // password: {
+        //   label: 'Password',
+        //   placeholder: 'Enter your Password',
+        //   type: 'password'
+        // }
       },
       authorize: async (credentials, req) => {
-        const { password, email } = credentials
-        console.log({ password, email })
+        try {
+          const { password, email } = credentials
+          await connectToDB()
+          const user = await User.findOne({ email })
+          if (!user) return null
+          console.log(user)
+          const isPasswordValid = bcrypt.compare(password, user.password)
+          if (!isPasswordValid) return null
+          return user
+        } catch (error) {
+          console.log(error)
+          return null
+        }
       }
     })
   ],
-
+  session: 'jwt',
+  pages: {
+    signIn: '/'
+  },
   callbacks: {
     session: async ({ session }) => {
       try {
@@ -45,9 +59,14 @@ const handler = NextAuth({
         return null
       }
     },
-    signIn: async ({ profile }) => {
+    signIn: async all => {
       try {
+        console.log(' ========= >', all)
+        let { profile, account, user } = all
         await connectToDB()
+        if (account.type === 'credentials') {
+          profile = user
+        }
         const userExists = await User.findOne({ email: profile.email })
 
         if (!userExists) {

@@ -2,9 +2,32 @@
 
 import { useEffect, useState } from 'react'
 import { getProviders, signIn } from 'next-auth/react'
+import Link from 'next/link'
+import * as yup from 'yup'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import toast from 'react-hot-toast'
+import { useRouter } from 'next/navigation'
+
+const schema = yup.object({
+  email: yup.string().required('Please enter email'),
+  password: yup
+    .string()
+    .min(8, 'Password must be 8 characters long')
+    .max(20, 'Password must be less than 20 characters')
+    .required('Please enter password')
+})
 
 export default function SignIn () {
+  const router = useRouter()
   const [providers, setProviders] = useState(null)
+  const {
+    handleSubmit,
+    register,
+    formState: { errors, isLoading }
+  } = useForm({
+    resolver: yupResolver(schema)
+  })
 
   const setupProviders = async () => {
     try {
@@ -18,9 +41,29 @@ export default function SignIn () {
     setupProviders()
   }, [])
 
+  const onSubmitHandler = async data => {
+    try {
+      const response = await signIn('credentials', {
+        ...data,
+        redirect: false
+      })
+      if (response.error) return toast.error('Password or email is wrong')
+      if (response.ok) {
+        router.replace('home')
+      } else {
+        toast.error(message)
+      }
+    } catch (error) {
+      toast.error(error?.response?.message)
+    }
+  }
+
   return (
     <section className='w-full flex items-center justify-center h-full'>
-      <form className='mx-auto flex w-full max-w-lg flex-col rounded-xl border border-border bg-backgroundSecondary p-4 sm:p-20 items-center'>
+      <form
+        className='mx-auto flex w-full max-w-lg flex-col rounded-xl border border-border bg-backgroundSecondary p-4 sm:p-20 items-center'
+        onSubmit={handleSubmit(onSubmitHandler)}
+      >
         <div className='flex w-full flex-col gap-2'>
           <div className='flex w-full flex-col gap-2'>
             <button
@@ -72,25 +115,38 @@ export default function SignIn () {
             <input
               placeholder='Type here'
               type='email'
+              {...register('email', { required: true })}
               className='input max-w-full'
             />
             <label className='form-label'>
-              <span className='form-label-alt'>
-                Please enter a valid email.
-              </span>
+              {errors.email && (
+                <span className='form-label-alt text-error'>
+                  {errors.email?.message}
+                </span>
+              )}
             </label>
           </div>
           <div className='form-field'>
             <label className='form-label'>
               <span>Password</span>
             </label>
-            <div className='form-control'>
-              <input
-                placeholder='Type here'
-                type='password'
-                className='input max-w-full'
-              />
-            </div>
+            <input
+              placeholder='Type here'
+              type='password'
+              className='input max-w-full'
+              {...register('password', {
+                required: true,
+                minLength: 8,
+                maxLength: 20
+              })}
+            />
+            <label className='form-label'>
+              {errors.password && (
+                <span className='form-label-alt text-error'>
+                  {errors.password?.message}
+                </span>
+              )}
+            </label>
           </div>
           <div className='form-field'>
             <div className='form-control justify-between'>
@@ -108,20 +164,27 @@ export default function SignIn () {
           <div className='form-field pt-5'>
             <div className='form-control justify-between'>
               <button
-                type='button'
-                onClick={signIn}
+                disabled={isLoading}
+                type='submit'
                 className='btn btn-primary w-full'
               >
-                Sign in
+                {isLoading ? (
+                  <div class='spinner-dot-intermittent [--spinner-color:var(--gray-1)]'></div>
+                ) : (
+                  'Sign in'
+                )}
               </button>
             </div>
           </div>
 
           <div className='form-field'>
             <div className='form-control'>
-              <a className='link link-underline-hover link-primary text-sm'>
+              <Link
+                href='/signup'
+                className='link link-underline-hover link-primary text-sm'
+              >
                 Don't have an account? Sign up
-              </a>
+              </Link>
             </div>
           </div>
         </div>
