@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google'
 import AuthProvider from '@/components/auth/AuthProvider'
 import Chat from '@/components/chats/Chat'
 import { Toaster } from 'react-hot-toast'
+import Header from '@/components/layouts/Header'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,11 +21,10 @@ export default function RootLayout ({ children }) {
         <AuthProvider>
           <Sidebar />
           <main className='p-4 w-full max-h-screen overflow-y-auto'>
+            <Header />
             {children}
           </main>
-          <div className='w-1/2 hidden sm:block'>
-            <Chat />
-          </div>
+          <Chat />
         </AuthProvider>
       </body>
     </html>
