@@ -1,5 +1,4 @@
 import Sidebar from '@/components/layouts/Sidebar'
-import './globals.css'
 import { Inter } from 'next/font/google'
 import AuthProvider from '@/components/auth/AuthProvider'
 import Chat from '@/components/chats/Chat'
@@ -15,15 +14,15 @@ export const metadata = {
 
 export default function RootLayout ({ children }) {
   return (
-    <html lang='en'>
-      <body className={`${inter.className} min-h-screen h-full flex`}>
-        <Toaster />
-        <AuthProvider>
-          <main className='w-full max-h-screen overflow-y-auto'>
-            {children}
-          </main>
-        </AuthProvider>
-      </body>
-    </html>
+    <main className={`${inter.className} min-h-screen h-full flex`}>
+      <AuthProvider>
+        <Sidebar />
+        <section className='p-4 w-full max-h-screen overflow-y-auto'>
+          <Header />
+          {children}
+        </section>
+        <Chat />
+      </AuthProvider>
+    </main>
   )
 }

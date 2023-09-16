@@ -30,7 +30,6 @@ const handler = NextAuth({
           await connectToDB()
           const user = await User.findOne({ email })
           if (!user) return null
-          console.log(user)
           const isPasswordValid = bcrypt.compare(password, user.password)
           if (!isPasswordValid) return null
           return user
@@ -61,7 +60,6 @@ const handler = NextAuth({
     },
     signIn: async all => {
       try {
-        console.log(' ========= >', all)
         let { profile, account, user } = all
         await connectToDB()
         if (account.type === 'credentials') {

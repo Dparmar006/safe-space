@@ -12,7 +12,7 @@ const Chat = () => {
 
   return (
     <div
-      className='w-1/2 hidden sm:block'
+      className='w-1/2 hidden sm:block max-h-screen'
       style={{ display: isChatUiVisible ? 'block' : 'none' }}
     >
       {room ? (

@@ -18,7 +18,7 @@ function onError (error) {
 }
 const theme = {
   paragraph:
-    'textarea textarea-block max-h-24 overflow-hidden overflow-y-auto min-w-100'
+    'textarea textarea-block max-h-24 overflow-hidden overflow-y-auto min-w-100 text-sm'
 }
 
 const ChatScreen = () => {
@@ -41,7 +41,7 @@ const ChatScreen = () => {
   }
 
   const sendMessage = () => {
-    const message = document.getElementById('message').value
+    const message = 'Hello there !'
     const to = 'dixit'
     socket.emit(CHAT_EVENTS.MESSAGE_SENT_REQUEST, { message }, to)
   }
@@ -81,7 +81,7 @@ const ChatScreen = () => {
 
       <div className='px-2 flex flex-col h-full flex-1'>
         {/* messages */}
-        <div className='grid max-h-[78dvh] overflow-y-auto my-2 h-[80dvh] min-h-[72dvh] items-start'>
+        <div className='grid overflow-y-auto my-2 items-start flex-1'>
           {messages.map(message => (
             <Message type={MESSAGE_TYPES.RECEIVED}>{message}</Message>
           ))}
