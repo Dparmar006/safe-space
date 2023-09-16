@@ -63,7 +63,7 @@ const ChatScreen = () => {
   }
 
   return (
-    <aside className='flex flex-col min-h-screen max-h-screen overflow-y-auto justify-between pb-2'>
+    <aside className='flex flex-col h-full max-h-screen overflow-y-auto justify-between pb-2'>
       <div className='flex gap-4 items-center bg-gray-1 hover:bg-gray-2 transition-colors p-2 select-none cursor-pointer mb-2'>
         <div className='avatar aspect-square h-10 w-10'>
           <img

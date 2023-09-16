@@ -1,6 +1,6 @@
 import React from 'react'
 import { RxHamburgerMenu } from 'react-icons/rx'
-import ChatToggle from './ChatToggle'
+import { BsChatRight } from 'react-icons/bs'
 
 const Header = () => {
   return (
@@ -11,6 +11,11 @@ const Header = () => {
             <label
               htmlFor='sidebar-mobile-fixed'
               className='sm:hidden cursor-pointer'
+              role='button'
+              type='button'
+              title='Open sidebar'
+              aria-description='Sidebar can be toggled here.'
+              aria-label='Sidebar toggle'
             >
               <RxHamburgerMenu />
             </label>
@@ -18,7 +23,17 @@ const Header = () => {
         </a>
       </div>
       <div className='navbar-end'>
-        <ChatToggle />
+        <label
+          role='button'
+          type='button'
+          className='py-1 px-3'
+          title='Open chat window'
+          aria-description='Chat window can be toggled here.'
+          aria-label='Chat window toggle'
+          htmlFor='drawer-right'
+        >
+          <BsChatRight />
+        </label>
       </div>
     </div>
   )
