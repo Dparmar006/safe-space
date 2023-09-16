@@ -1,10 +1,7 @@
-import Sidebar from '@/components/layouts/Sidebar'
 import './globals.css'
 import { Inter } from 'next/font/google'
 import AuthProvider from '@/components/auth/AuthProvider'
-import Chat from '@/components/chats/Chat'
 import { Toaster } from 'react-hot-toast'
-import Header from '@/components/layouts/Header'
 
 const inter = Inter({ subsets: ['latin'] })
 

@@ -14,9 +14,6 @@ const Home = () => {
         <Post />
         <Post />
       </div>
-      {/* <div className='w-1/3'>
-        <Chat />
-      </div> */}
     </section>
   )
 }

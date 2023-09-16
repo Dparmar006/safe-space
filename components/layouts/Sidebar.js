@@ -29,7 +29,7 @@ const Sidebar = () => {
       />
       <label htmlFor='sidebar-mobile-fixed' className='sidebar-overlay'></label>
       <aside className='sidebar sidebar-mobile max-h-screen justify-start max-sm:fixed max-sm:-translate-x-full'>
-        <Link href='/home'>
+        <Link href='/'>
           <section className='sidebar-title items-center p-4'>
             <svg
               fill='none'
@@ -60,7 +60,7 @@ const Sidebar = () => {
             <section className='menu-section px-4'>
               <span className='menu-title'>Main menu</span>
               <ul className='menu-items'>
-                <Link href='/home' className='menu-item menu-active'>
+                <Link href='/' className='menu-item menu-active'>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
                     className='h-5 w-5 opacity-75'
