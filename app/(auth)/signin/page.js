@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
+import { FaSpotify } from 'react-icons/fa'
 
 const schema = yup.object({
   email: yup.string().required('Please enter email'),
@@ -101,6 +102,15 @@ export default function SignIn () {
                 ></path>
               </svg>
               <span>Sign up with google</span>
+            </button>
+            <button
+              key={providers?.spotify?.name}
+              type='button'
+              onClick={() => signIn(providers?.spotify?.id)}
+              className='btn gap-2 bg-gray-5 m-2'
+            >
+              <FaSpotify />
+              <span>Sign up with spotify</span>
             </button>
           </div>
         </div>

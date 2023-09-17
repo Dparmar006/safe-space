@@ -10,6 +10,7 @@ export async function fetchPosts ({
   try {
     const totalCount = await Post.count({})
     const records = await Post.find({})
+      .sort({ _id: 'desc' })
       .limit(limit)
       .skip((page - 1) * limit)
     return { posts: JSON.parse(JSON.stringify(records)), totalCount }
