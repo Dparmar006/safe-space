@@ -22,7 +22,7 @@ const Chat = () => {
             ✕
           </label>
 
-          <div className='hidden sm:block max-h-screen h-full'>
+          <div className='sm:block max-h-screen h-full'>
             {room ? (
               <aside className='flex flex-col p-2 min-h-full max-h-screen overflow-y-auto'>
                 <RecentMessagesList handleSelectRoom={handleSelectRoom} />
