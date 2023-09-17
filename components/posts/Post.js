@@ -1,17 +1,13 @@
 import React from 'react'
 import { AiOutlineComment, AiOutlineHeart } from 'react-icons/ai'
 import { RiLoopRightFill } from 'react-icons/ri'
+import Avatar from '../user/Avatar'
 
 const Post = ({ post }) => {
   return (
     <>
       <div className='flex gap-4 items-start'>
-        <div className='avatar w-10 h-10 aspect-square'>
-          <img
-            src={`https://api.dicebear.com/7.x/micah/svg?seed=${post.authorId}`}
-            alt='avatar'
-          />
-        </div>
+        <Avatar username={post.authorId} />
         <div className='flex flex-col w-full'>
           <p className='self-start font-semibold'>
             Dixit Parmar{' '}

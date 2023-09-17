@@ -1,15 +1,8 @@
 import Post from '@/models/posts'
 import { NextResponse } from 'next/server'
-import Joi from 'joi'
 import * as Yup from 'yup'
 import { handlePagination } from '@/utils'
 import { connectToDB } from '@/utils/database'
-
-// const postValidationSchema = Joi.object({
-//   content: Joi.string(),
-//   images: Joi.array().items(Joi.string()),
-//   authorId: Joi.string().required()
-// })
 
 const postValidationSchema = Yup.object({
   content: Yup.string(),
