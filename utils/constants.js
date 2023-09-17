@@ -19,3 +19,6 @@ export const CHAT_EVENTS = {
   DISCONNECT: 'disconnect',
   USER_DISCONNECTED: 'USER_DISCONNECTED'
 }
+
+export const DEFAULT_API_LIMIT = 40
+export const DEFAULT_API_PAGE = 1

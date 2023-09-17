@@ -74,7 +74,7 @@ const ChatScreen = () => {
         </div>
         <div className='flex flex-col w-full'>
           <p className='font-semibold text-base truncate text-ellipsis overflow-hidden max-w-xs'>
-            Bishakha{' '}
+            Someone{' '}
           </p>
         </div>
       </div>

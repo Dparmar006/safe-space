@@ -2,13 +2,13 @@ import React from 'react'
 import { AiOutlineComment, AiOutlineHeart } from 'react-icons/ai'
 import { RiLoopRightFill } from 'react-icons/ri'
 
-const Post = () => {
+const Post = ({ post }) => {
   return (
     <>
       <div className='flex gap-4 items-start'>
-        <div className='avatar'>
+        <div className='avatar w-10 h-10 aspect-square'>
           <img
-            src='https://i.pravatar.cc/150?u=a042581f4e29026024d'
+            src={`https://api.dicebear.com/7.x/micah/svg?seed=${post.authorId}`}
             alt='avatar'
           />
         </div>
@@ -17,7 +17,7 @@ const Post = () => {
             Dixit Parmar{' '}
             <span className='text-gray-600 font-normal'>@thatsenoughdixit</span>
           </p>
-          <p>Lorem consectetur consectetur ad proident aliquip.</p>
+          <p>{post.content}</p>
           <div className='flex justify-between mt-4'>
             <span className='flex items-center gap-2 hover:text-cyan-600 cursor-pointer transition-colors'>
               <AiOutlineComment size={20} /> 22

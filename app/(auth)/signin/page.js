@@ -49,7 +49,7 @@ export default function SignIn () {
       })
       if (response.error) return toast.error('Password or email is wrong')
       if (response.ok) {
-        router.replace('home')
+        router.replace('/')
       } else {
         toast.error(message)
       }

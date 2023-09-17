@@ -3,7 +3,6 @@
 import React, { useState } from 'react'
 import RecentMessagesList from './RecentMessagesList'
 import ChatScreen from './ChatScreen'
-import { useChatUi } from '@/hooks/ui'
 
 const Chat = () => {
   const [room, setRoom] = useState('')
