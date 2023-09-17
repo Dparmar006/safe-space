@@ -1,6 +1,7 @@
 'use client'
 import { useSession } from 'next-auth/react'
 import React, { useState } from 'react'
+import Avatar from '../user/Avatar'
 
 const CreatePost = () => {
   const session = useSession()
@@ -13,13 +14,7 @@ const CreatePost = () => {
   return (
     <>
       <div className='flex gap-4 items-center'>
-        <div className='avatar'>
-          <img
-            className='select-none pointer-events-none'
-            src={loggedinUser?.image}
-            alt='avatar'
-          />
-        </div>
+        <Avatar image={loggedinUser?.image} username={loggedinUser?.email} />
         <textarea
           onChange={handleChange}
           value={post}

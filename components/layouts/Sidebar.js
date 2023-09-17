@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import { getProviders, signIn, signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
+import Avatar from '../user/Avatar'
 const Sidebar = () => {
   const session = useSession()
   const loggedinUser = session?.data?.user
@@ -239,9 +240,10 @@ const Sidebar = () => {
                 tabIndex={0}
               >
                 <div className='flex flex-row gap-4 p-4'>
-                  <div className='avatar-square avatar avatar-md'>
-                    <img src={loggedinUser.image} alt='avatar' />
-                  </div>
+                  <Avatar
+                    image={loggedinUser?.image}
+                    username={loggedinUser?.email}
+                  />
 
                   <div className='flex flex-col'>
                     <span>{loggedinUser.name}</span>

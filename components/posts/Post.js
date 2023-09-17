@@ -14,7 +14,7 @@ const Post = ({ post }) => {
             <span className='text-gray-600 font-normal'>@thatsenoughdixit</span>
           </p>
           <p>{post.content}</p>
-          <div className='flex justify-between mt-4'>
+          <div className='flex justify-between mt-4 select-none'>
             <span className='flex items-center gap-2 hover:text-cyan-600 cursor-pointer transition-colors'>
               <AiOutlineComment size={20} /> 22
             </span>
