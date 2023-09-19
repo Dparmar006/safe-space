@@ -1,9 +1,11 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import { fetchPosts } from './actions'
+import { fetchPosts } from '../../actions/posts.actions'
 import Post from './Post'
 import { useInView } from 'react-intersection-observer'
+import toast from 'react-hot-toast'
+import { DEFAULT_API_LIMIT } from '@/utils/constants'
 
 const InfiniteScrolling = ({ initialMovies, initialTotalCount = 0 }) => {
   const [posts, setPosts] = useState(initialMovies)
@@ -11,15 +13,50 @@ const InfiniteScrolling = ({ initialMovies, initialTotalCount = 0 }) => {
   const [page, setPage] = useState(1)
   const [ref, inView] = useInView()
 
+  // NOTE: This features was implemented using server actions
+  // when I tried to use mongodb aggregation, it kept returning empty array
+
+  // async function loadMoreMovies () {
+  //   const next = page + 1
+  //   const response = JSON.parse(
+  //     JSON.stringify(await fetchPosts({ page: next }))
+  //   )
+  //   const { posts, totalCount } = response
+  //   if (posts?.length) {
+  //     setTotalCount(totalCount)
+  //     setPage(next)
+  //     setPosts(prev => [...(prev?.length ? prev : []), ...posts])
+  //   }
+  // }
+
+  async function getPosts (paginationPayload) {
+    try {
+      const searchParams = new URLSearchParams(
+        Object.entries(paginationPayload)
+      )
+      const res = await fetch(`/api/posts?${searchParams.toString()}`, {
+        method: 'GET'
+      })
+      if (res.ok) {
+        return await res.json()
+      }
+    } catch (error) {
+      toast.error(error.response?.message || error.message)
+      return error
+    }
+  }
   async function loadMoreMovies () {
     const next = page + 1
-    const { posts, totalCount } = await fetchPosts({ page: next })
+    debugger
+    const { data } = await getPosts({ page: next, limit: DEFAULT_API_LIMIT })
+    const { posts, totalCount } = data
+    setTotalCount(totalCount)
     if (posts?.length) {
-      setTotalCount(totalCount)
       setPage(next)
       setPosts(prev => [...(prev?.length ? prev : []), ...posts])
     }
   }
+
   // TODO: wrap loadMoreMovies in useCcallback
   useEffect(() => {
     if (inView) {
@@ -33,7 +70,7 @@ const InfiniteScrolling = ({ initialMovies, initialTotalCount = 0 }) => {
         <Post post={post} key={post._id.toString()} />
       ))}
       {posts.length < totalCount && (
-        <div className='w-full flex justify-center py-4'>
+        <div className='w-full flex justify-center py-8'>
           <div ref={ref} className='spinner-dot-intermittent'></div>
         </div>
       )}

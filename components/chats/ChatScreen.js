@@ -79,7 +79,7 @@ const ChatScreen = () => {
         </div>
       </div>
 
-      <div className='px-2 flex flex-col h-full flex-1'>
+      <div className='flex flex-col h-full flex-1'>
         {/* messages */}
         <div className='grid overflow-y-auto my-2 items-start flex-1'>
           {messages.map(message => (
@@ -109,7 +109,7 @@ const ChatScreen = () => {
           </LexicalComposer>
           <button
             type='button'
-            className='btn btn-primary btn-sm h-full max-h-full'
+            className='btn btn-primary btn-sm'
             onClick={sendMessage}
           >
             SEND

@@ -13,8 +13,8 @@ const Chat = () => {
       <input type='checkbox' id='drawer-right' className='drawer-toggle' />
 
       <label className='overlay' htmlFor='drawer-right'></label>
-      <div className='drawer drawer-right max-w-none'>
-        <div className='drawer-content pt-10 flex flex-col h-[100dvh]'>
+      <div className='drawer drawer-right max-w-none sm:w-[20rem]'>
+        <div className='drawer-content pt-10 flex flex-col h-[100dvh] '>
           <label
             htmlFor='drawer-right'
             className='btn btn-sm btn-circle btn-ghost absolute right-2 top-2'

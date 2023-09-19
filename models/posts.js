@@ -12,6 +12,7 @@ const PostsSchema = new Schema(
     },
     authorId: {
       type: ObjectId,
+      ref: 'User',
       required: [true, 'Author is required']
     }
   },
