@@ -69,11 +69,16 @@ const InfiniteScrolling = ({ initialMovies, initialTotalCount = 0 }) => {
       {posts.map(post => (
         <Post post={post} key={post._id.toString()} />
       ))}
-      {posts.length < totalCount && (
-        <div className='w-full flex justify-center py-8'>
+      <div className='w-full flex justify-center py-24'>
+        {posts.length < totalCount ? (
           <div ref={ref} className='spinner-dot-intermittent'></div>
-        </div>
-      )}
+        ) : (
+          <h2 className='text-2xl text-center font-semibold'>
+            Here, take this thropy for your thumb, It runs too much on social
+            media. <br /> <br /> 🏆
+          </h2>
+        )}
+      </div>
     </>
   )
 }

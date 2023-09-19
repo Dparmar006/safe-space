@@ -16,6 +16,10 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
@@ -49,4 +53,21 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
   @apply rounded-sm;
+}
+
+.post-fade-in-animation {
+  animation: postsFadeIn linear 0.5ms both;
+  animation-timeline: view();
+  animation-range: entry 50% cover 30%;
+}
+
+@keyframes postsFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }

@@ -8,7 +8,7 @@ dayjs.extend(relativeTime)
 const Post = ({ post }) => {
   return (
     <>
-      <div className='flex gap-4 items-start'>
+      <div className='flex gap-4 items-start post-fade-in-animation'>
         <Avatar
           image={post.user.image}
           username={post.user.username.replaceAll(' ', '')}
