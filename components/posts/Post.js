@@ -2,7 +2,9 @@ import React from 'react'
 import { AiOutlineComment, AiOutlineHeart } from 'react-icons/ai'
 import { RiLoopRightFill } from 'react-icons/ri'
 import Avatar from '../user/Avatar'
-
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
+dayjs.extend(relativeTime)
 const Post = ({ post }) => {
   return (
     <>
@@ -12,10 +14,16 @@ const Post = ({ post }) => {
           username={post.user.username.replaceAll(' ', '')}
         />
         <div className='flex flex-col w-full'>
-          <p className='self-start font-semibold'>
+          <p className='self-start font-semibold flex flex-col justify-start mb-2'>
             {post.user.firstName} {post.user.lastName}
-            <span className='text-gray-600 font-normal px-2'>
-              @{post.user.username.replaceAll(' ', '')}
+            <span className='flex gap-2 items-center'>
+              <span className='text-gray-600 text-xs'>
+                @{post.user.username.replaceAll(' ', '')}
+              </span>
+              <span className='dot h-[.200rem] w-[.200rem] min-h-min min-w-min'></span>
+              <span className='text-gray-600 text-xs'>
+                {dayjs().to(dayjs(post.createdAt), true)}
+              </span>
             </span>
           </p>
           <p>{post.content}</p>

@@ -50,7 +50,7 @@ const CreatePost = () => {
       <div className='flex justify-end pt-4'>
         <button
           onClick={createPost}
-          disabled={isLoading || !post}
+          disabled={isLoading || !post.trim()}
           className='btn btn-primary btn-sm'
         >
           {isLoading ? 'Posting...' : 'Post'}
