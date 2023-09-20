@@ -25,7 +25,7 @@ export default function SignIn () {
   const {
     handleSubmit,
     register,
-    formState: { errors, isLoading }
+    formState: { errors, isSubmitting }
   } = useForm({
     resolver: yupResolver(schema)
   })
@@ -55,10 +55,9 @@ export default function SignIn () {
         toast.error(message)
       }
     } catch (error) {
-      toast.error(error?.response?.message)
+      toast.error(error?.response?.message || error.message)
     }
   }
-
   return (
     <section className='w-full flex items-center justify-center h-full'>
       <form
@@ -174,11 +173,11 @@ export default function SignIn () {
           <div className='form-field pt-5'>
             <div className='form-control justify-between'>
               <button
-                disabled={isLoading}
+                disabled={isSubmitting}
                 type='submit'
                 className='btn btn-primary w-full'
               >
-                {isLoading ? (
+                {isSubmitting ? (
                   <div class='spinner-dot-intermittent [--spinner-color:var(--gray-1)]'></div>
                 ) : (
                   'Sign in'

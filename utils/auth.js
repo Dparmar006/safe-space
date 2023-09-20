@@ -24,9 +24,14 @@ const authOptions = {
           await connectToDB()
           const user = await User.findOne({ email })
           if (!user) return null
-          const isPasswordValid = bcrypt.compare(password, user.password)
+          const isPasswordValid = await bcrypt.compare(password, user.password)
           if (!isPasswordValid) return null
-          return user
+          return {
+            id: user._id,
+            name: `${user.firstName} ${user.lastName}`,
+            email: user.email,
+            image: user?.image || ''
+          }
         } catch (error) {
           console.log(error)
           return null

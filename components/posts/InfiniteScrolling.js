@@ -47,7 +47,6 @@ const InfiniteScrolling = ({ initialMovies, initialTotalCount = 0 }) => {
   }
   async function loadMoreMovies () {
     const next = page + 1
-    debugger
     const { data } = await getPosts({ page: next, limit: DEFAULT_API_LIMIT })
     const { posts, totalCount } = data
     setTotalCount(totalCount)

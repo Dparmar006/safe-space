@@ -44,7 +44,7 @@ const CreatePost = () => {
           disabled={isLoading}
           value={post}
           className='textarea-block textarea bg-transparent border-transparent min-h-fit'
-          placeholder='So, How you feeling today?'
+          placeholder='So, How are you feeling today?'
         />
       </div>
       <div className='flex justify-end pt-4'>

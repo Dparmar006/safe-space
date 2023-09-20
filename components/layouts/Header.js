@@ -4,7 +4,7 @@ import { BsChatRight } from 'react-icons/bs'
 
 const Header = () => {
   return (
-    <div className='navbar rounded-lg navbar-glass py-4'>
+    <div className='navbar navbar-sticky navbar-glass py-4'>
       <div className='navbar-start'>
         <a className='navbar-item'>
           <div className='flex w-full flex-col'>

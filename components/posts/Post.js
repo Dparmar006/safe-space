@@ -7,7 +7,7 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(relativeTime)
 const Post = ({ post }) => {
   return (
-    <>
+    <div className='hover:bg-gray-1 pt-2 px-2 rounded-md md:rounded-lg transition-colors cursor-pointer'>
       <div className='flex gap-4 items-start post-fade-in-animation'>
         <Avatar
           image={post.user.image}
@@ -40,8 +40,8 @@ const Post = ({ post }) => {
           </div>
         </div>
       </div>
-      <div className='divider h-0'></div>
-    </>
+      <div className='divider h-0 mt-3 mb-0'></div>
+    </div>
   )
 }
 

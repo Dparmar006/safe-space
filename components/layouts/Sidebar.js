@@ -29,7 +29,7 @@ const Sidebar = () => {
         className='sidebar-state'
       />
       <label htmlFor='sidebar-mobile-fixed' className='sidebar-overlay'></label>
-      <aside className='sidebar sidebar-mobile max-h-screen justify-start max-sm:fixed max-sm:-translate-x-full'>
+      <aside className='sidebar sidebar-mobile h-[100dvh] max-h-screen justify-start max-sm:fixed max-sm:-translate-x-full'>
         <Link href='/'>
           <section className='sidebar-title items-center p-4'>
             <svg
@@ -198,6 +198,7 @@ const Sidebar = () => {
                       <span>Contracts</span>
                     </div>
 
+
                     <span className='menu-icon'>
                       <svg
                         xmlns='http://www.w3.org/2000/svg'
@@ -213,6 +214,7 @@ const Sidebar = () => {
                       </svg>
                     </span>
                   </label>
+
 
                   <div className='menu-item-collapse'>
                     <div className='min-h-0'>
@@ -252,24 +254,6 @@ const Sidebar = () => {
               </label>
               <div className='dropdown-menu-right-top dropdown-menu ml-2'>
                 <a className='dropdown-item text-sm'>Profile</a>
-                <a tabIndex={-1} className='dropdown-item text-sm'>
-                  Account settings
-                </a>
-                <a tabIndex={-1} className='dropdown-item text-sm'>
-                  Change email
-                </a>
-                <a tabIndex={-1} className='dropdown-item text-sm'>
-                  Subscriptions
-                </a>
-                <a tabIndex={-1} className='dropdown-item text-sm'>
-                  Change password
-                </a>
-                <a tabIndex={-1} className='dropdown-item text-sm'>
-                  Refer a friend
-                </a>
-                <a tabIndex={-1} className='dropdown-item text-sm'>
-                  Settings
-                </a>
                 <button
                   onClick={signOut}
                   tabIndex={-1}

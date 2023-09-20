@@ -100,7 +100,9 @@ const ChatScreen = () => {
                 />
               }
               placeholder={
-                <div className='absolute p-3 text-slate-500 select-none pointer-events-none'></div>
+                <div className='absolute p-3 text-slate-500 select-none pointer-events-none'>
+                  Under development...
+                </div>
               }
               ErrorBoundary={LexicalErrorBoundary}
             />

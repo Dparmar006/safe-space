@@ -24,7 +24,11 @@ export async function POST (req) {
     let encryptedPassword = await bcrypt.hash(password, 12)
     email = email.toLowerCase()
     username =
-      username || `${firstName}${lastName}${parseInt(Math.random() * 100000)}`
+      username ||
+      `${firstName}${lastName}${parseInt(Math.random() * 100000)}`.replaceAll(
+        ' ',
+        ''
+      )
 
     const createdUser = await User.create({
       ...requestBody,
