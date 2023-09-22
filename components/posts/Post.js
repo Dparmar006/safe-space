@@ -22,11 +22,11 @@ const Post = ({ post }) => {
           <p className='self-start font-semibold flex flex-col justify-start mb-2'>
             {post.user.firstName} {post.user.lastName}
             <span className='flex gap-2 items-center'>
-              <span className='text-gray-600 text-xs'>
+              <span className='text-zinc-600 text-xs'>
                 @{post.user.username.replaceAll(' ', '')}
               </span>
               <span className='dot h-[.200rem] w-[.200rem] min-h-min min-w-min'></span>
-              <span className='text-gray-600 text-xs'>
+              <span className='text-zinc-600 text-xs'>
                 {dayjs().to(dayjs(post.createdAt), true)}
               </span>
             </span>

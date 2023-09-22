@@ -100,7 +100,7 @@ const ChatScreen = () => {
                 />
               }
               placeholder={
-                <div className='absolute p-3 text-slate-500 select-none pointer-events-none'>
+                <div className='absolute p-3 text-zinc-500 select-none pointer-events-none'>
                   Under development...
                 </div>
               }

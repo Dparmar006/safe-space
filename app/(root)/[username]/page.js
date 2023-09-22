@@ -26,7 +26,7 @@ const page = async ({ params }) => {
           <Avatar size='16' />
           <div>
             <h2 className='text-2xl break-all'>{params.username}</h2>
-            <p className='text-slate-800 text-sm break-all mt-1'>
+            <p className='text-zinc-800 text-sm break-all mt-1'>
               @{params.username}
             </p>
           </div>
