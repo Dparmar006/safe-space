@@ -5,6 +5,7 @@ import Avatar from '../user/Avatar'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(relativeTime)
+
 const Post = ({ post }) => {
   return (
     <div className='hover:bg-gray-1 pt-2 px-2 rounded-md md:rounded-lg transition-colors cursor-pointer'>
@@ -26,7 +27,7 @@ const Post = ({ post }) => {
               </span>
             </span>
           </p>
-          <p>{post.content}</p>
+          <p className='break-all'>{post.content}</p>
           <div className='flex justify-between mt-4 select-none'>
             <span className='flex items-center gap-2 hover:text-cyan-600 cursor-pointer transition-colors'>
               <AiOutlineComment size={20} /> 0

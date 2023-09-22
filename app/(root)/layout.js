@@ -5,6 +5,7 @@ import Header from '@/components/layouts/Header'
 import { getServerSession } from 'next-auth'
 import authOptions from '../../utils/auth'
 import { redirect } from 'next/navigation'
+import ExploreSection from '@/components/layouts/ExploreSection'
 
 export const metadata = {
   title: 'Untold - Find your community, your way, with Untold.',
@@ -22,10 +23,11 @@ export default async function RootLayout ({ children }) {
     <main className={`min-h-screen h-full flex`}>
       <AuthProvider>
         <Sidebar />
-        <section className='p-4 w-full max-h-screen overflow-y-auto'>
+        <section className='p-4 w-full max-h-screen overflow-y-auto mt-12'>
           <Header />
-          <div className='pt-12'>{children}</div>
+          {children}
         </section>
+        <ExploreSection />
         <Chat />
       </AuthProvider>
     </main>

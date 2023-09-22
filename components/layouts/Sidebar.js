@@ -50,7 +50,7 @@ const Sidebar = () => {
             <div className='flex flex-col'>
               <span>Untold</span>
               <span className='text-xs font-normal text-content2'>
-                The whispers
+                The safe-space
               </span>
             </div>
           </section>

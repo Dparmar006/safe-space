@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import { fetchPosts } from '../../actions/posts.actions'
 import Post from './Post'
 import { useInView } from 'react-intersection-observer'
 import toast from 'react-hot-toast'
@@ -73,7 +72,7 @@ const InfiniteScrolling = ({ initialMovies, initialTotalCount = 0 }) => {
           <div ref={ref} className='spinner-dot-intermittent'></div>
         ) : (
           <h2 className='text-2xl text-center font-semibold'>
-            Here, take this thropy for your thumb, It runs too much on social
+            Here, take this tropy for your thumb, It runs too much on social
             media. <br /> <br /> 🏆
           </h2>
         )}
