@@ -31,7 +31,7 @@ const Post = ({ post }) => {
               </span>
             </span>
           </p>
-          <p className='whitespace-break-spaces break-all'>{post.content}</p>
+          <p className='break-all'>{post.content}</p>
           <div className='flex justify-between mt-4 select-none'>
             <span className='flex items-center gap-2 hover:text-cyan-600 cursor-pointer transition-colors'>
               <AiOutlineComment size={20} /> 0
