@@ -4,17 +4,21 @@ import { RiLoopRightFill } from 'react-icons/ri'
 import Avatar from '../user/Avatar'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
+import Link from 'next/link'
 dayjs.extend(relativeTime)
 
 const Post = ({ post }) => {
   return (
-    <div className='hover:bg-gray-1 pt-2 px-2 rounded-md md:rounded-lg transition-colors cursor-pointer'>
+    <div className='hover:bg-backgroundSecondary pt-2 px-2 rounded-md md:rounded-lg transition-colors cursor-pointer'>
       <div className='flex gap-4 items-start post-fade-in-animation'>
         <Avatar
           image={post.user.image}
           username={post.user.username.replaceAll(' ', '')}
         />
-        <div className='flex flex-col w-full'>
+        <Link
+          href={`/${post.user.username.replaceAll(' ', '')}`}
+          className='flex flex-col w-full'
+        >
           <p className='self-start font-semibold flex flex-col justify-start mb-2'>
             {post.user.firstName} {post.user.lastName}
             <span className='flex gap-2 items-center'>
@@ -27,7 +31,7 @@ const Post = ({ post }) => {
               </span>
             </span>
           </p>
-          <p className='break-all'>{post.content}</p>
+          <p className='whitespace-break-spaces break-all'>{post.content}</p>
           <div className='flex justify-between mt-4 select-none'>
             <span className='flex items-center gap-2 hover:text-cyan-600 cursor-pointer transition-colors'>
               <AiOutlineComment size={20} /> 0
@@ -39,7 +43,7 @@ const Post = ({ post }) => {
               <AiOutlineHeart size={20} /> 0
             </span>
           </div>
-        </div>
+        </Link>
       </div>
       <div className='divider h-0 mt-3 mb-0'></div>
     </div>

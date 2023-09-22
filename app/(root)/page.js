@@ -13,7 +13,7 @@ export const Home = async () => {
       <div className='flex-1'>
         <CreatePost />
         <InfiniteScrolling
-          initialMovies={posts}
+          initialPosts={posts}
           initialTotalCount={totalCount}
         />
       </div>

@@ -25,7 +25,7 @@ export default async function RootLayout ({ children }) {
         <Sidebar />
         <section className='p-4 w-full max-h-screen overflow-y-auto mt-12'>
           <Header />
-          {children}
+          <div className='w-full'>{children}</div>
         </section>
         <ExploreSection />
         <Chat />

@@ -6,8 +6,8 @@ const CommunityList = ({ cummunities = [] }) => {
     <>
       <h3 className='text-bold text-lg'>Communities</h3>
       <ul>
-        {cummunities.map(cummunitiy => (
-          <CommunityTile cummunitiy={cummunitiy} />
+        {cummunities.map((cummunitiy, _id) => (
+          <CommunityTile key={_id} cummunitiy={cummunitiy} />
         ))}
       </ul>
     </>

@@ -6,8 +6,8 @@ import { useInView } from 'react-intersection-observer'
 import toast from 'react-hot-toast'
 import { DEFAULT_API_LIMIT } from '@/utils/constants'
 
-const InfiniteScrolling = ({ initialMovies, initialTotalCount = 0 }) => {
-  const [posts, setPosts] = useState(initialMovies)
+const InfiniteScrolling = ({ initialPosts, initialTotalCount = 0 }) => {
+  const [posts, setPosts] = useState(initialPosts)
   const [totalCount, setTotalCount] = useState(initialTotalCount)
   const [page, setPage] = useState(1)
   const [ref, inView] = useInView()
@@ -63,7 +63,7 @@ const InfiniteScrolling = ({ initialMovies, initialTotalCount = 0 }) => {
   }, [inView])
 
   return (
-    <>
+    <section>
       {posts.map(post => (
         <Post post={post} key={post._id.toString()} />
       ))}
@@ -77,7 +77,7 @@ const InfiniteScrolling = ({ initialMovies, initialTotalCount = 0 }) => {
           </h2>
         )}
       </div>
-    </>
+    </section>
   )
 }
 
