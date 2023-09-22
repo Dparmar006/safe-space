@@ -71,3 +71,8 @@ body {
     transform: scale(1);
   }
 }
+
+::selection {
+  @apply text-primary;
+  @apply bg-backgroundSecondary;
+}
