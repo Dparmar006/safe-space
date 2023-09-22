@@ -23,7 +23,7 @@ const page = async ({ params }) => {
       <section className='pb-4'>
         <h1 className='text-3xl my-8'>Something just like this...</h1>
         <figure className='flex gap-2'>
-          <Avatar size='16' />
+          <Avatar size='32' />
           <div>
             <h2 className='text-2xl break-all'>{params.username}</h2>
             <p className='text-zinc-800 text-sm break-all mt-1'>
@@ -41,12 +41,18 @@ const page = async ({ params }) => {
           className='tab-toggle'
           defaultChecked
         />
-        <label htmlFor='tab-4' className='tab tab-bordered px-6 w-1/2'>
+        <label
+          htmlFor='tab-4'
+          className='tab tab-bordered px-6 w-1/2 justify-center'
+        >
           Posts
         </label>
 
         <input type='radio' id='tab-5' name='tab-2' className='tab-toggle' />
-        <label htmlFor='tab-5' className='tab tab-bordered px-6 w-1/2'>
+        <label
+          htmlFor='tab-5'
+          className='tab tab-bordered px-6 w-1/2 justify-center'
+        >
           Gallery
         </label>
       </div>

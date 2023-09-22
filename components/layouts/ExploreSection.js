@@ -3,8 +3,8 @@ import CommunityList from '../communities/CommunityList'
 
 const ExploreSection = () => {
   return (
-    <aside className='w-1/2 max-h-[100dvh] mt-12 p-4 hidden lg:block overflow-y-auto'>
-      <h1 className='text-xl font-bold'>Welcome to Untold, Safe-Space</h1>
+    <aside className='w-1/2 max-h-[100dvh] mt-12 px-4 py-10 hidden lg:block overflow-y-auto'>
+      <h1 className='text-3xl font-semibold'>Welcome to Untold, Safe-Space</h1>
       <h3 className='text-md mt-4 text-zinc-600'>
         Experience a social media platform like no other, where your preferences
         and interests take center stage. With Untold, you're in control. you.
