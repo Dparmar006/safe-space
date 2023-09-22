@@ -6,3 +6,8 @@ export const useChatUi = create(set => ({
   hideChat: () => set(state => ({ isChatUiVisible: false })),
   toggleChat: () => set(state => ({ isChatUiVisible: !state.isChatUiVisible }))
 }))
+
+export const usePostCreateStatus = create(set => ({
+  isCreated: false,
+  toggle: () => set(state => ({ isCreated: !state.isCreated }))
+}))

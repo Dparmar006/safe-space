@@ -4,8 +4,10 @@ import React, { useState } from 'react'
 import Avatar from '../user/Avatar'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
+import { usePostCreateStatus } from '@/hooks/ui'
 
 const CreatePost = () => {
+  const toggle = usePostCreateStatus(state => state.toggle)
   const session = useSession()
   const router = useRouter()
   const loggedinUser = session?.data?.user
@@ -27,6 +29,7 @@ const CreatePost = () => {
         })
       })
       setPost('')
+      toggle()
       router.refresh()
     } catch (error) {
       toast.error(error.message)

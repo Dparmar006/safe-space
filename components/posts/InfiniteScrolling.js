@@ -5,8 +5,10 @@ import Post from './Post'
 import { useInView } from 'react-intersection-observer'
 import toast from 'react-hot-toast'
 import { DEFAULT_API_LIMIT } from '@/utils/constants'
+import { usePostCreateStatus } from '@/hooks/ui'
 
 const InfiniteScrolling = ({ initialPosts, initialTotalCount = 0 }) => {
+  const { isCreated, toggle } = usePostCreateStatus(state => state)
   const [posts, setPosts] = useState(initialPosts)
   const [totalCount, setTotalCount] = useState(initialTotalCount)
   const [page, setPage] = useState(1)
@@ -44,14 +46,18 @@ const InfiniteScrolling = ({ initialPosts, initialTotalCount = 0 }) => {
       return error
     }
   }
-  async function loadMoreMovies () {
-    const next = page + 1
+  async function loadMoreMovies (isReset = false) {
+    const next = (isReset ? 0 : page) + 1
     const { data } = await getPosts({ page: next, limit: DEFAULT_API_LIMIT })
     const { posts, totalCount } = data
     setTotalCount(totalCount)
     if (posts?.length) {
       setPage(next)
-      setPosts(prev => [...(prev?.length ? prev : []), ...posts])
+      if (isReset) {
+        setPosts(prev => [...posts])
+      } else {
+        setPosts(prev => [...(prev?.length ? prev : []), ...posts])
+      }
     }
   }
 
@@ -60,7 +66,12 @@ const InfiniteScrolling = ({ initialPosts, initialTotalCount = 0 }) => {
     if (inView) {
       loadMoreMovies()
     }
-  }, [inView])
+    debugger
+    if (isCreated) {
+      loadMoreMovies(true)
+      toggle()
+    }
+  }, [inView, isCreated])
 
   return (
     <section>
