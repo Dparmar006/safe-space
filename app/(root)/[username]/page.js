@@ -1,6 +1,9 @@
-import { fetchPosts } from '@/actions/posts.actions'
-import InfiniteScrolling from '@/components/posts/InfiniteScrolling'
-import Avatar from '@/components/user/Avatar'
+import {
+  fetchPosts,
+  fetchUserProfileGalleryImages
+} from '@/actions/posts.actions'
+import ProfileFeed from '@/components/posts/ProfileFeed'
+import BasicInformation from '@/components/user/BasicInformation'
 import { DEFAULT_API_LIMIT } from '@/utils/constants'
 import Link from 'next/link'
 import React from 'react'
@@ -9,6 +12,7 @@ const page = async ({ params }) => {
   const { posts, totalCount } = JSON.parse(
     JSON.stringify(await fetchPosts({ limit: DEFAULT_API_LIMIT }))
   )
+  const response = await fetchUserProfileGalleryImages()
   return (
     <>
       <div className='breadcrumbs text-lg mt-4 px-0 flex-wrap'>
@@ -20,44 +24,13 @@ const page = async ({ params }) => {
         </ul>
       </div>
 
-      <section className='pb-4'>
-        <h1 className='text-3xl my-8'>Something just like this...</h1>
-        <figure className='flex gap-2'>
-          <Avatar size='32' />
-          <div>
-            <h2 className='text-2xl break-all'>{params.username}</h2>
-            <p className='text-zinc-800 text-sm break-all mt-1'>
-              @{params.username}
-            </p>
-          </div>
-        </figure>
-      </section>
+      <BasicInformation user={params} />
 
-      <div className='tabs w-full flex justify-between mb-4'>
-        <input
-          type='radio'
-          id='tab-4'
-          name='tab-2'
-          className='tab-toggle'
-          defaultChecked
-        />
-        <label
-          htmlFor='tab-4'
-          className='tab tab-bordered px-6 w-1/2 justify-center'
-        >
-          Posts
-        </label>
-
-        <input type='radio' id='tab-5' name='tab-2' className='tab-toggle' />
-        <label
-          htmlFor='tab-5'
-          className='tab tab-bordered px-6 w-1/2 justify-center'
-        >
-          Gallery
-        </label>
-      </div>
-
-      <InfiniteScrolling initialPosts={posts} initialTotalCount={totalCount} />
+      <ProfileFeed
+        posts={posts}
+        totalCount={totalCount}
+        galleryImages={response}
+      />
     </>
   )
 }

@@ -22,3 +22,8 @@ export const CHAT_EVENTS = {
 
 export const DEFAULT_API_LIMIT = 10
 export const DEFAULT_API_PAGE = 1
+
+export const PROFILE_TABS = {
+  POSTS: 'POSTS',
+  GALLERY: 'GALLERY'
+}

@@ -42,3 +42,16 @@ export async function fetchPosts ({
     return error
   }
 }
+
+export async function fetchUserProfileGalleryImages () {
+  try {
+    const response = await fetch(
+      'https://picsum.photos/v2/list?page=2&limit=40'
+    )
+
+    return await response.json()
+  } catch (error) {
+    console.log(error)
+    return error
+  }
+}

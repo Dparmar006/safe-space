@@ -66,7 +66,6 @@ const InfiniteScrolling = ({ initialPosts, initialTotalCount = 0 }) => {
     if (inView) {
       loadMoreMovies()
     }
-    debugger
     if (isCreated) {
       loadMoreMovies(true)
       toggle()
