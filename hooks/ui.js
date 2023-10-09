@@ -1,13 +1,14 @@
-const { create } = require('zustand')
+const { create } = require("zustand");
 
-export const useChatUi = create(set => ({
+export const useChatUi = create((set) => ({
   isChatUiVisible: false,
-  showChat: () => set(state => ({ isChatUiVisible: true })),
-  hideChat: () => set(state => ({ isChatUiVisible: false })),
-  toggleChat: () => set(state => ({ isChatUiVisible: !state.isChatUiVisible }))
-}))
+  showChat: () => set((state) => ({ isChatUiVisible: true })),
+  hideChat: () => set((state) => ({ isChatUiVisible: false })),
+  toggleChat: () =>
+    set((state) => ({ isChatUiVisible: !state.isChatUiVisible })),
+}));
 
-export const usePostCreateStatus = create(set => ({
+export const usePostCreateStatus = create((set) => ({
   isCreated: false,
-  toggle: () => set(state => ({ isCreated: !state.isCreated }))
-}))
+  toggle: () => set((state) => ({ isCreated: !state.isCreated })),
+}));

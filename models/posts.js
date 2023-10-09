@@ -1,26 +1,26 @@
-import { ObjectId } from 'mongodb'
+import { ObjectId } from "mongodb";
 
-const { Schema, model, models } = require('mongoose')
+const { Schema, model, models } = require("mongoose");
 
 const PostsSchema = new Schema(
   {
     content: {
-      type: String
+      type: String,
     },
     images: {
-      type: [String]
+      type: [String],
     },
     authorId: {
       type: ObjectId,
-      ref: 'User',
-      required: [true, 'Author is required']
-    }
+      ref: "User",
+      required: [true, "Author is required"],
+    },
   },
   {
-    timestamps: true
-  }
-)
+    timestamps: true,
+  },
+);
 
-const Post = models.Post || model('Post', PostsSchema)
+const Post = models.Post || model("Post", PostsSchema);
 
-export default Post
+export default Post;
