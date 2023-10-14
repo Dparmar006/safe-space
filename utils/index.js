@@ -17,6 +17,10 @@ export const handlePagination = (request) => {
     page,
     skip,
     limit,
-    [searchKey]: searchValue,
+    searchKey,
+    searchValue,
+    filter: {
+      [searchKey]: searchValue,
+    },
   };
 };

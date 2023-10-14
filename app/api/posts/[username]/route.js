@@ -1,55 +1,20 @@
 import Post from "@/models/posts";
 import { NextResponse } from "next/server";
-import * as Yup from "yup";
 import { handlePagination } from "@/utils";
 import { connectToDB } from "@/utils/database";
 import { ObjectId } from "mongodb";
 
-const postValidationSchema = Yup.object({
-  content: Yup.string(),
-  // images: Yup.array().items(Yup.string()),
-  authorId: Yup.string().typeError("Please pass valid objectId").required(),
-});
-
-export async function POST(req) {
-  try {
-    const reqBody = await req.json();
-    await postValidationSchema.validate(reqBody);
-    await connectToDB();
-    const response = await Post.create(reqBody);
-    return NextResponse.json(
-      {
-        message: "Post created successfully",
-        data: response,
-      },
-      {
-        status: 201,
-      },
-    );
-  } catch (error) {
-    return NextResponse.json(
-      {
-        message: error.message,
-        data: null,
-      },
-      {
-        status: error.name === "ValidationError" ? 400 : 500,
-      },
-    );
-  }
-}
-
-export async function GET(req) {
+export async function GET(req, { params }) {
   try {
     const pagination = handlePagination(req);
     await connectToDB();
-    const filter = { ...pagination.filter };
-    if (pagination.searchKey === "authorId") {
-      filter[pagination.searchKey] = new ObjectId(pagination.searchValue);
-    }
     const totalCount = await Post.count({});
     const response = await Post.aggregate([
-      { $match: filter },
+      {
+        $match: {
+          authorId: new ObjectId("6501f2f03f0574f83e662303"),
+        },
+      },
       { $sort: { _id: -1 } },
       { $skip: Number(pagination.skip) },
       { $limit: Number(pagination.limit) },

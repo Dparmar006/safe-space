@@ -35,6 +35,8 @@ const InfiniteScrolling = ({ initialPosts, initialTotalCount = 0 }) => {
       const searchParams = new URLSearchParams(
         Object.entries(paginationPayload),
       );
+      searchParams.append("searchKey", "authorId");
+      searchParams.append("searchValue", "dixitparmar");
       const res = await fetch(`/api/posts?${searchParams.toString()}`, {
         method: "GET",
       });
