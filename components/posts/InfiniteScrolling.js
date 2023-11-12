@@ -7,7 +7,11 @@ import toast from "react-hot-toast";
 import { DEFAULT_API_LIMIT } from "@/utils/constants";
 import { usePostCreateStatus } from "@/hooks/ui";
 
-const InfiniteScrolling = ({ initialPosts, initialTotalCount = 0 }) => {
+const InfiniteScrolling = ({
+  initialPosts,
+  initialTotalCount = 0,
+  filter = null,
+}) => {
   const { isCreated, toggle } = usePostCreateStatus((state) => state);
   const [posts, setPosts] = useState(initialPosts);
   const [totalCount, setTotalCount] = useState(initialTotalCount);
@@ -34,9 +38,11 @@ const InfiniteScrolling = ({ initialPosts, initialTotalCount = 0 }) => {
     try {
       const searchParams = new URLSearchParams(
         Object.entries(paginationPayload),
+        Object.entries(filter ?? {}),
       );
-      searchParams.append("searchKey", "authorId");
-      searchParams.append("searchValue", "dixitparmar");
+      if (filter) {
+        searchParams.append(Object.keys(filter)[0], Object.values(filter)[0]);
+      }
       const res = await fetch(`/api/posts?${searchParams.toString()}`, {
         method: "GET",
       });
@@ -50,7 +56,11 @@ const InfiniteScrolling = ({ initialPosts, initialTotalCount = 0 }) => {
   }
   async function loadMoreMovies(isReset = false) {
     const next = (isReset ? 0 : page) + 1;
-    const { data } = await getPosts({ page: next, limit: DEFAULT_API_LIMIT });
+    const { data, ...rest } = await getPosts({
+      page: next,
+      limit: DEFAULT_API_LIMIT,
+    });
+    console.log(data, rest);
     const { posts, totalCount } = data;
     setTotalCount(totalCount);
     if (posts?.length) {

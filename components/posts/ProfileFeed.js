@@ -4,16 +4,21 @@ import { PROFILE_TABS } from "@/utils/constants";
 import React, { useState } from "react";
 import GalleryFeed from "./GalleryFeed";
 import InfiniteScrolling from "./InfiniteScrolling";
+import { useSession } from "next-auth/react";
 
 const ProfileFeed = ({ totalCount, posts, galleryImages }) => {
   const [selectedTab, setSelectedTab] = useState(PROFILE_TABS.POSTS);
   const toggleSelectedTab = (event) => {
     setSelectedTab(event.target.value || PROFILE_TABS.POSTS);
   };
-
+  const session = useSession();
   const TABS_CONTENT = {
     [PROFILE_TABS.POSTS]: (
-      <InfiniteScrolling initialTotalCount={totalCount} initialPosts={posts} />
+      <InfiniteScrolling
+        initialTotalCount={totalCount}
+        initialPosts={posts}
+        filter={{ authorId: session?.data?.user?.id }}
+      />
     ),
     [PROFILE_TABS.GALLERY]: <GalleryFeed images={galleryImages} />,
   };
