@@ -37,9 +37,12 @@ const InfiniteScrolling = ({
   async function getPosts(paginationPayload) {
     try {
       const searchParams = new URLSearchParams(
-        Object.entries(paginationPayload),
+        Object.entries({ ...paginationPayload, ...filter }),
         Object.entries(filter ?? {}),
       );
+      console.log("PROFILE ==== ?", searchParams);
+      console.log("filter ==== ?", filter);
+
       if (filter) {
         searchParams.append(Object.keys(filter)[0], Object.values(filter)[0]);
       }
@@ -66,7 +69,7 @@ const InfiniteScrolling = ({
     if (posts?.length) {
       setPage(next);
       if (isReset) {
-        setPosts((prev) => [...posts]);
+        setPosts(() => [...posts]);
       } else {
         setPosts((prev) => [...(prev?.length ? prev : []), ...posts]);
       }

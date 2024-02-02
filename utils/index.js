@@ -24,3 +24,19 @@ export const handlePagination = (request) => {
     },
   };
 };
+
+export function extractTextFromLexicalEditor(node) {
+  if (!node) {
+    return "";
+  }
+
+  if (node.type === "text") {
+    return node.text;
+  } else if (node.children && node.children.length > 0) {
+    return node.children
+      .map((child) => extractTextFromLexicalEditor(child))
+      .join(" ");
+  }
+
+  return "";
+}

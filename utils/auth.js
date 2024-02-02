@@ -18,7 +18,7 @@ const authOptions = {
     CredentialsProvider({
       name: "credentials",
       credentials: {},
-      authorize: async (credentials, req) => {
+      authorize: async (credentials) => {
         try {
           const { password, email } = credentials;
           await connectToDB();

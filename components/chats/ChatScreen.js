@@ -11,6 +11,7 @@ import Message from "./Message";
 import { CHAT_EVENTS, MESSAGE_TYPES } from "@/utils/constants";
 import { socket } from "@/utils/socket";
 import { useSession } from "next-auth/react";
+import { extractTextFromLexicalEditor } from "@/utils";
 
 // Editor updater
 function onError(error) {
@@ -59,7 +60,8 @@ const ChatScreen = () => {
 
   const onChange = (e, ...rest) => {
     const { root } = e.toJSON();
-    console.log(root, { rest });
+    const method = extractTextFromLexicalEditor(root);
+    console.log(method, root, { rest });
   };
 
   return (
