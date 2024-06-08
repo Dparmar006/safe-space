@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { FaSpotify } from "react-icons/fa";
+// import { FaSpotify } from "react-icons/fa";
 
 const schema = yup.object({
   email: yup.string().required("Please enter email"),
