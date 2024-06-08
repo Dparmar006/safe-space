@@ -40,9 +40,6 @@ const InfiniteScrolling = ({
         Object.entries({ ...paginationPayload, ...filter }),
         Object.entries(filter ?? {}),
       );
-      console.log("PROFILE ==== ?", searchParams);
-      console.log("filter ==== ?", filter);
-
       if (filter) {
         searchParams.append(Object.keys(filter)[0], Object.values(filter)[0]);
       }

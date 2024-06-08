@@ -7,7 +7,7 @@ const ExploreSection = () => {
       <h1 className="text-3xl font-semibold">Welcome to Untold, Safe-Space</h1>
       <h3 className="text-md mt-4 text-zinc-600">
         Experience a social media platform like no other, where your preferences
-        and interests take center stage. With Untold, you're in control. you.
+        and interests take center stage. With Untold, you are in control. you.
       </h3>
       <div className="divider"></div>
       <CommunityList

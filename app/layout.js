@@ -2,6 +2,7 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import AuthProvider from "@/components/auth/AuthProvider";
 import { Toaster } from "react-hot-toast";
+import QueryProvider from "@/components/utils/QueryProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,9 +18,11 @@ export default function RootLayout({ children }) {
       <body className={`${inter.className} min-h-screen h-full flex`}>
         <Toaster />
         <AuthProvider>
-          <main className="w-full max-h-screen overflow-y-auto">
-            {children}
-          </main>
+          <QueryProvider>
+            <main className="w-full max-h-screen overflow-y-auto">
+              {children}
+            </main>
+          </QueryProvider>
         </AuthProvider>
       </body>
     </html>

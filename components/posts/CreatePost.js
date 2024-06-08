@@ -81,9 +81,7 @@ const CreatePost = () => {
               />
             }
             placeholder={
-              <div className="absolute p-3 ml-1 pl-16 text-zinc-500 select-none pointer-events-none">
-                How are you feeling today?
-              </div>
+              <div className="absolute p-3 ml-1 pl-16 text-zinc-500 select-none pointer-events-none"></div>
             }
             ErrorBoundary={LexicalErrorBoundary}
           />

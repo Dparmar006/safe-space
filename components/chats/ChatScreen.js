@@ -85,7 +85,9 @@ const ChatScreen = () => {
         {/* messages */}
         <div className="grid overflow-y-auto my-2 items-start flex-1">
           {messages.map((message) => (
-            <Message type={MESSAGE_TYPES.RECEIVED}>{message}</Message>
+            <Message key={message} type={MESSAGE_TYPES.RECEIVED}>
+              {message}
+            </Message>
           ))}
         </div>
 
