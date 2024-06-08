@@ -52,7 +52,7 @@ export default function SignIn() {
       if (response.ok) {
         router.replace("/");
       } else {
-        toast.error(message);
+        toast.error("Could not not signup");
       }
     } catch (error) {
       toast.error(error?.response?.message || error.message);
@@ -64,7 +64,8 @@ export default function SignIn() {
         className="mx-auto flex w-full max-w-lg flex-col rounded-xl border border-border bg-backgroundSecondary p-4 sm:p-20 items-center"
         onSubmit={handleSubmit(onSubmitHandler)}
       >
-        <div className="flex w-full flex-col gap-2">
+        <h1 className="font-bold mb-2">Welcome to untold, Please signin...</h1>
+        {/* <div className="flex w-full flex-col gap-2">
           <div className="flex w-full flex-col gap-2">
             <button
               key={providers?.google?.name}
@@ -112,10 +113,10 @@ export default function SignIn() {
               <span>Sign up with spotify</span>
             </button>
           </div>
-        </div>
-        <div className="divider my-6 text-xs text-content2">
+        </div> */}
+        {/* <div className="divider my-6 text-xs text-content2">
           or continue with
-        </div>
+        </div> */}
 
         <div className="form-group">
           <div className="form-field">
@@ -157,7 +158,7 @@ export default function SignIn() {
               )}
             </label>
           </div>
-          <div className="form-field">
+          {/* <div className="form-field">
             <div className="form-control justify-between">
               <div className="flex gap-2">
                 <input type="checkbox" className="checkbox" />
@@ -169,7 +170,7 @@ export default function SignIn() {
                 </a>
               </label>
             </div>
-          </div>
+          </div> */}
           <div className="form-field pt-5">
             <div className="form-control justify-between">
               <button
@@ -178,7 +179,7 @@ export default function SignIn() {
                 className="btn btn-primary w-full"
               >
                 {isSubmitting ? (
-                  <div class="spinner-dot-intermittent [--spinner-color:var(--gray-1)]"></div>
+                  <div className="spinner-dot-intermittent [--spinner-color:var(--gray-1)]"></div>
                 ) : (
                   "Sign in"
                 )}
@@ -192,7 +193,7 @@ export default function SignIn() {
                 href="/signup"
                 className="link link-underline-hover link-primary text-sm"
               >
-                Don't have an account? Sign up
+                Dont have an account? Sign up
               </Link>
             </div>
           </div>

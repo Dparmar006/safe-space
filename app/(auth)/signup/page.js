@@ -71,7 +71,7 @@ export default function SignUp() {
         className="mx-auto flex w-full max-w-lg flex-col rounded-xl border border-border bg-backgroundSecondary p-4 sm:p-20 items-center"
         onSubmit={handleSubmit(onSubmitHandler)}
       >
-        <div className="flex w-full flex-col gap-2">
+        {/* <div className="flex w-full flex-col gap-2">
           <div className="flex w-full flex-col gap-2">
             <button
               key={providers?.google?.name}
@@ -113,9 +113,10 @@ export default function SignUp() {
         </div>
         <div className="divider my-6 text-xs text-content2">
           or continue with
-        </div>
+        </div> */}
+        <h1 className="font-bold mb-2">Welcome to untold, Please signup...</h1>
 
-        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div className="form-field">
             <label className="form-label">First name</label>
             <input
@@ -199,7 +200,7 @@ export default function SignUp() {
                 className="btn btn-primary w-full"
               >
                 {isLoading ? (
-                  <div class="spinner-dot-intermittent [--spinner-color:var(--gray-1)]"></div>
+                  <div className="spinner-dot-intermittent [--spinner-color:var(--gray-1)]"></div>
                 ) : (
                   "Sign up"
                 )}
