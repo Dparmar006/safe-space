@@ -4,7 +4,7 @@ import { fetchPosts } from "@/actions/posts.actions";
 import React from "react";
 import { DEFAULT_API_LIMIT } from "@/utils/constants";
 
-export const Home = async () => {
+const Home = async () => {
   const { posts, totalCount } = JSON.parse(
     JSON.stringify(await fetchPosts({ limit: DEFAULT_API_LIMIT })),
   );
