@@ -38,6 +38,7 @@ export default function SignIn() {
       console.log(error);
     }
   };
+
   useEffect(() => {
     setupProviders();
   }, []);
@@ -71,7 +72,7 @@ export default function SignIn() {
               key={providers?.google?.name}
               type="button"
               onClick={() => signIn(providers?.google?.id)}
-              className="btn gap-2 bg-gray-5 m-2"
+              className="btn gap-2 bg-gray-5 my-2"
             >
               <svg
                 stroke="currentColor"
@@ -101,22 +102,22 @@ export default function SignIn() {
  c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
                 ></path>
               </svg>
-              <span>Sign up with google</span>
+              <span>Sign in with google</span>
             </button>
             <button
               key={providers?.spotify?.name}
               type="button"
               onClick={() => signIn(providers?.spotify?.id)}
-              className="btn gap-2 bg-gray-5 m-2"
+              className="btn gap-2 bg-gray-5 my-2"
             >
               <FaSpotify />
-              <span>Sign up with spotify</span>
+              <span>Sign in with spotify</span>
             </button>
           </div>
         </div>
-        {/* <div className="divider my-6 text-xs text-content2">
+        <div className="divider my-6 text-xs text-content2">
           or continue with
-        </div> */}
+        </div>
 
         <div className="form-group">
           <div className="form-field">
