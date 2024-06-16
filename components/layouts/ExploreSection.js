@@ -14,7 +14,7 @@ const ExploreSection = () => {
         cummunities={[
           {
             name: "DHH",
-            shortDescription: `Desi hip hop is a term for music and culture which combines the influences of hip hop and the Indian subcontinent; the term desi referring to the South Asian diaspora.`,
+            shortDescription: `Desi hip-hop is a term for music and culture which combines the influences of hip hop and the Indian subcontinent; the term desi referring to the South Asian diaspora.`,
           },
           {
             name: "Marvel",
