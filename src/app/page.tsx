@@ -17,7 +17,7 @@ export default async function MailPage() {
 
   return (
     <>
-      <div className="md:hidden">
+      <div className="hidden">
         <Image
           src="/examples/mail-dark.png"
           width={1280}
@@ -33,7 +33,7 @@ export default async function MailPage() {
           className="block dark:hidden"
         />
       </div>
-      <div className="hidden flex-col md:flex">
+      <div className="flex-col md:flex">
         <Feed
           accounts={accounts}
           initialPosts={initialPosts}
