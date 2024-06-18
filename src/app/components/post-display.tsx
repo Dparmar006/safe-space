@@ -42,6 +42,7 @@ import {
   addDays,
 } from "date-fns";
 import { IFeedPost } from "@/types/post.types";
+import { ThemeSwitch } from "@/components/ui/ThemeSwitch";
 
 interface MailDisplayProps {
   post: IFeedPost | null;
@@ -65,21 +66,9 @@ export function PostDisplay({ post }: MailDisplayProps) {
           </Tooltip>
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button variant="ghost" size="icon" disabled={!post}>
-                <ArchiveX className="h-4 w-4" />
-                <span className="sr-only">Move to junk</span>
-              </Button>
+              <ThemeSwitch />
             </TooltipTrigger>
-            <TooltipContent>Move to junk</TooltipContent>
-          </Tooltip>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button variant="ghost" size="icon" disabled={!post}>
-                <Trash2 className="h-4 w-4" />
-                <span className="sr-only">Move to trash</span>
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>Move to trash</TooltipContent>
+            <TooltipContent>Theme</TooltipContent>
           </Tooltip>
           <Separator orientation="vertical" className="mx-1 h-6" />
           <Tooltip>
