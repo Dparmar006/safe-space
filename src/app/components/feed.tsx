@@ -219,8 +219,11 @@ export function Feed({
             </TabsContent>
           </Tabs>
         </ResizablePanel>
-        <ResizableHandle withHandle />
-        <ResizablePanel defaultSize={defaultLayout[2]}>
+        <ResizableHandle className="hidden md:flex" withHandle />
+        <ResizablePanel
+          className="hidden md:block"
+          defaultSize={defaultLayout[2]}
+        >
           <PostDisplay
             post={
               initialPosts.find((item) => item._id === mail.selected) || null
