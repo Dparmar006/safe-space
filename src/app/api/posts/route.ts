@@ -4,11 +4,12 @@ import * as Yup from "yup";
 import { handlePagination } from "@/utils";
 import { connectToDB } from "@/utils/database";
 import { ObjectId } from "mongodb";
+import { sendResponse } from "@/utils/apiHelper";
 
 const postValidationSchema = Yup.object({
   content: Yup.string(),
   // images: Yup.array().items(Yup.string()),
-  authorId: Yup.string().typeError("Please pass valid objectId").required(),
+  // authorId: Yup.string().typeError("Please pass valid objectId").required(),
 });
 
 export async function POST(req: NextRequest) {
@@ -17,16 +18,9 @@ export async function POST(req: NextRequest) {
     await postValidationSchema.validate(reqBody);
     await connectToDB();
     const response = await Post.create(reqBody);
-    console.log(response);
-    return NextResponse.json(
-      {
-        message: "Post created successfully",
-        data: response,
-      },
-      {
-        status: 201,
-      }
-    );
+    return sendResponse(201, "Post created successfully", {
+      data: response,
+    });
   } catch (err) {
     const error = err as Error;
     console.log(error);
@@ -53,6 +47,7 @@ export async function GET(req: NextRequest) {
       ).toString();
     }
     const totalCount = await Post.countDocuments({});
+
     const response = await Post.aggregate([
       { $match: filter },
       { $sort: { _id: -1 } },
@@ -82,15 +77,11 @@ export async function GET(req: NextRequest) {
         $unwind: "$user",
       },
     ]);
-    return NextResponse.json(
-      {
-        message: "All the posts here",
-        data: { posts: response, totalCount },
-      },
-      {
-        status: 200,
-      }
-    );
+
+    return sendResponse(200, "All the posts here", {
+      posts: response,
+      totalCount,
+    });
   } catch (err) {
     const error = err as Error;
     return NextResponse.json(

@@ -8,31 +8,19 @@ export const handlePagination = (request: NextRequest) => {
   const searchKey = searchParams.get("searchKey");
   const searchValue = searchParams.get("searchValue");
 
-  let skip = (page - 1) * limit;
+  const skip = (page - 1) * limit;
+
+  const filter: { [key: string]: string | undefined } = {};
+  if (searchKey && searchValue) {
+    filter[searchKey] = searchValue;
+  }
+
   return {
     page,
     skip,
     limit,
     searchKey,
     searchValue,
-    filter: {
-      [searchKey as string]: searchValue,
-    },
+    filter,
   };
 };
-
-// export function extractTextFromLexicalEditor(node) {
-//   if (!node) {
-//     return "";
-//   }
-
-//   if (node.type === "text") {
-//     return node.text;
-//   } else if (node.children && node.children.length > 0) {
-//     return node.children
-//       .map((child) => extractTextFromLexicalEditor(child))
-//       .join(" ");
-//   }
-
-//   return "";
-// }
