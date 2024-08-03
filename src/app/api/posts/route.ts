@@ -81,6 +81,7 @@ export async function GET(req: NextRequest) {
     return sendResponse(200, "All the posts here", {
       posts: response,
       totalCount,
+      nextPage: pagination.page + 1,
     });
   } catch (err) {
     const error = err as Error;

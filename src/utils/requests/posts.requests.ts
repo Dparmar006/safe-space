@@ -16,7 +16,7 @@ export interface IGetPostPayload {
 }
 export const getPostRequest = async ({ pageParam }: { pageParam: number }) => {
   const response = await apiRequest<
-    ServerResponse<{ posts: IFeedPost[]; totalCount: number }>
+    ServerResponse<{ posts: IFeedPost[]; totalCount: number; nextPage: number }>
   >("api/posts", "GET", null, {
     params: { page: pageParam },
   });

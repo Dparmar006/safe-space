@@ -6,6 +6,6 @@ export const useGetPostsQuery = () => {
     queryKey: ["posts"],
     queryFn: getPostRequest,
     initialPageParam: 0,
-    getNextPageParam: (lastPage, pages) => lastPage.nextCursor,
+    getNextPageParam: (lastPage, pages) => lastPage.data.nextPage,
   });
 };
