@@ -30,6 +30,8 @@ import { Nav } from "./nav";
 import { PostsList } from "./posts-list";
 import { PostDisplay } from "./post-display";
 import { IFeedPost } from "@/types/post.types";
+import { useAtom } from "jotai";
+import { uiAtom } from "@/store/ui.store";
 
 interface MailProps {
   accounts: {
@@ -54,6 +56,8 @@ export function Feed({
 }: MailProps) {
   const [isCollapsed, setIsCollapsed] = React.useState(defaultCollapsed);
   const [mail] = useSelectedPost();
+
+  const [uiState] = useAtom(uiAtom);
 
   return (
     <TooltipProvider delayDuration={0}>
@@ -103,7 +107,7 @@ export function Feed({
             links={[
               {
                 title: "Home",
-                label: "128",
+                label: `${uiState.postsCount || 0}`,
                 icon: Inbox,
                 variant: "default",
               },
@@ -145,31 +149,31 @@ export function Feed({
             links={[
               {
                 title: "Social",
-                label: "972",
+                label: "0",
                 icon: Users2,
                 variant: "ghost",
               },
               {
                 title: "Updates",
-                label: "342",
+                label: "0",
                 icon: AlertCircle,
                 variant: "ghost",
               },
               {
                 title: "Forums",
-                label: "128",
+                label: "0",
                 icon: MessagesSquare,
                 variant: "ghost",
               },
               {
                 title: "Shopping",
-                label: "8",
+                label: "0",
                 icon: ShoppingCart,
                 variant: "ghost",
               },
               {
                 title: "Promotions",
-                label: "21",
+                label: "0",
                 icon: Archive,
                 variant: "ghost",
               },
@@ -206,16 +210,10 @@ export function Feed({
               </form>
             </div> */}
             <TabsContent value="all" className="my-4">
-              <PostsList
-                initialPosts={initialPosts}
-                initialTotalCount={totalCount}
-              />
+              <PostsList />
             </TabsContent>
             <TabsContent value="unread" className="m-0">
-              <PostsList
-                initialPosts={initialPosts}
-                initialTotalCount={totalCount}
-              />
+              <PostsList />
             </TabsContent>
           </Tabs>
         </ResizablePanel>

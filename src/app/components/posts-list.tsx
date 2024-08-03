@@ -1,34 +1,20 @@
 "use client";
 
-import { ComponentProps, Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect } from "react";
 import { formatDistanceToNow } from "date-fns";
 
 import { cn } from "@/lib/utils";
-import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useSelectedPost } from "../use-post";
 import { IFeedPost } from "@/types/post.types";
 import { useInView } from "react-intersection-observer";
-import { DEFAULT_API_LIMIT } from "@/utils/constants";
-import { useToast } from "@/components/ui/use-toast";
 import { Skeleton } from "@/components/ui/skeleton";
 import CreatePost from "@/components/ui/create-post";
 import { useGetPostsQuery } from "@/utils/queries/posts.queries";
-interface PostsListProps {
-  initialPosts: IFeedPost[];
-  initialTotalCount: number;
-}
 
-export function PostsList({
-  initialPosts,
-  initialTotalCount = 0,
-}: PostsListProps) {
-  const { toast } = useToast();
+export function PostsList() {
   const [selectedPost, setSelectedPost] = useSelectedPost();
-  const [postsList, setPosts] = useState(initialPosts);
-  const [totalCount, setTotalCount] = useState(initialTotalCount);
-  const [page, setPage] = useState(1);
-  const [ref, inView] = useInView();
+  const [ref, inView] = useInView({ triggerOnce: true });
   const {
     data,
     error,
@@ -38,64 +24,24 @@ export function PostsList({
     isFetchingNextPage,
     status,
   } = useGetPostsQuery();
-
-  async function getPosts(paginationPayload: Object) {
-    try {
-      const searchParams = new URLSearchParams(
-        Object.entries(paginationPayload).map(([key, value]) => [
-          key,
-          String(value),
-        ])
-      );
-      const res = await fetch(`/api/posts?${searchParams.toString()}`, {
-        method: "GET",
-      });
-      if (!res.ok) {
-        console.log(res);
-        return { data: [], message: "Something went wrong" };
-      }
-      return await res.json();
-    } catch (err) {
-      console.log(err);
-      const error = err as Error;
-      toast({
-        variant: "destructive",
-        title: error.message,
-        description: error?.message,
-      });
-      return [];
-    }
-  }
-
+  console.log({ hasNextPage, isFetching, isFetchingNextPage, status });
   useEffect(() => {
-    debugger;
-    async function loadMoreMovies(isReset = false) {
-      const next = (isReset ? 0 : page) + 1;
-      const { data } = await getPosts({
-        page: next,
-        limit: DEFAULT_API_LIMIT,
-      });
-      const { posts, totalCount } = data;
-      setTotalCount(totalCount);
-      if (posts?.length) {
-        setPage(next);
-        if (isReset) {
-          setPosts(() => [...posts]);
-        } else {
-          setPosts((prev) => [...(prev?.length ? prev : []), ...posts]);
-        }
-      }
-    }
     if (inView) {
-      loadMoreMovies();
+      fetchNextPage();
     }
-    // if (isCreated) {
-    //   loadMoreMovies(true);
-    //   toggle();
-    // }
-  }, [inView, page]);
+  }, [inView, fetchNextPage]);
 
-  if (status === "pending") return <p>Loading...</p>;
+  if (status === "pending")
+    return (
+      <ScrollArea className="h-screen">
+        <Skeleton className="h-[60px] rounded-lg mx-4 my-3" />
+        <Skeleton className="h-[36px] rounded-lg mx-4 my-3" />
+
+        {Array.from({ length: 12 }).map((_, index) => (
+          <Skeleton key={index} className="h-[100px] rounded-lg mx-4 my-2" />
+        ))}
+      </ScrollArea>
+    );
   if (status === "error") return <p>Error: {error.message}</p>;
   return (
     <ScrollArea className="h-screen">
@@ -163,19 +109,18 @@ export function PostsList({
             ))}
           </Fragment>
         ))}
-        {/* {postsList.map((post) => (
-          
-        ))} */}
       </div>
-
-      <div className="w-full flex justify-center py-24">
-        {postsList.length < totalCount ? (
-          <div ref={ref}>
+      <span ref={ref}></span>
+      {isFetching ||
+        (isFetchingNextPage && (
+          <div>
             {Array.from({ length: 6 }).map((_, index) => (
               <Skeleton key={index} className="h-[100px] rounded-xl m-4" />
             ))}
           </div>
-        ) : (
+        ))}
+      <div className="w-full flex justify-center py-24">
+        {!hasNextPage && (
           <h2 className="text-2xl text-center font-semibold">
             Here, take this tropy for your thumb, It runs too much on social
             media. <br /> <br /> 🏆
