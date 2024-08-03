@@ -17,6 +17,7 @@ function CreatePost() {
       content,
       authorId: "66ae8e47bdec180219c9435f",
     });
+    setContent("");
   };
   return (
     <div className="grid w-full gap-2">
