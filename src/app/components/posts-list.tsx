@@ -6,7 +6,6 @@ import { formatDistanceToNow } from "date-fns";
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useSelectedPost } from "../use-post";
-import { IFeedPost } from "@/types/post.types";
 import { useInView } from "react-intersection-observer";
 import { Skeleton } from "@/components/ui/skeleton";
 import CreatePost from "@/components/ui/create-post";
@@ -14,7 +13,7 @@ import { useGetPostsQuery } from "@/utils/queries/posts.queries";
 
 export function PostsList() {
   const [selectedPost, setSelectedPost] = useSelectedPost();
-  const [ref, inView] = useInView({ triggerOnce: true });
+  const [ref, inView] = useInView();
   const {
     data,
     error,
@@ -24,7 +23,7 @@ export function PostsList() {
     isFetchingNextPage,
     status,
   } = useGetPostsQuery();
-  console.log({ hasNextPage, isFetching, isFetchingNextPage, status });
+
   useEffect(() => {
     if (inView) {
       fetchNextPage();
@@ -110,15 +109,14 @@ export function PostsList() {
           </Fragment>
         ))}
       </div>
-      <span ref={ref}></span>
-      {isFetching ||
-        (isFetchingNextPage && (
-          <div>
-            {Array.from({ length: 6 }).map((_, index) => (
-              <Skeleton key={index} className="h-[100px] rounded-xl m-4" />
-            ))}
-          </div>
-        ))}
+      <div className="block" ref={ref}></div>
+      {(isFetching || isFetchingNextPage) && (
+        <div>
+          {Array.from({ length: 6 }).map((_, index) => (
+            <Skeleton key={index} className="h-[100px] rounded-xl m-4" />
+          ))}
+        </div>
+      )}
       <div className="w-full flex justify-center py-24">
         {!hasNextPage && (
           <h2 className="text-2xl text-center font-semibold">

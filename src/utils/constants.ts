@@ -20,7 +20,7 @@ export const CHAT_EVENTS = {
   USER_DISCONNECTED: "USER_DISCONNECTED",
 };
 
-export const DEFAULT_API_LIMIT = 10;
+export const DEFAULT_API_LIMIT = 20;
 export const DEFAULT_API_PAGE = 1;
 
 export const PROFILE_TABS = {

@@ -13,8 +13,8 @@ export const useGetPostsQuery = () => {
       setUiState({ ...uiState, postsCount: response.data.totalCount });
       return response;
     },
-    initialPageParam: 0,
-    refetchInterval: 10000,
-    getNextPageParam: (lastPage, pages) => lastPage.data.nextPage,
+    initialPageParam: 1,
+    refetchInterval: 60000,
+    getNextPageParam: (lastPage) => lastPage.data.nextPage,
   });
 };
