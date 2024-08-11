@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Feed } from "@/app/components/feed";
 import { accounts } from "@/app/data";
 import { getPostsAction } from "@/actions/posts.actions";
+import { auth } from "@/auth";
 
 export default async function MailPage() {
   const layout = cookies().get("react-resizable-panels:layout");

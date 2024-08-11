@@ -3,7 +3,7 @@ import { IFeedPost } from "@/types/post.types";
 
 export interface ICreatePostPayload {
   content: string;
-  authorId: string;
+  email: string;
 }
 export const createPostRequest = async (payload: ICreatePostPayload) => {
   const response = await apiRequest("api/posts", "POST", payload);

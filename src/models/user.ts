@@ -1,7 +1,9 @@
-import { IPost } from "@/types/post.types";
-import { Schema, model, models, Model, Document } from "mongoose";
+import { IUser } from "@/types/user.types";
+import { Schema, model, models, Model } from "mongoose";
 
-const UserSchema = new Schema(
+type IUserDocument = IUser & Document;
+
+const UserSchema = new Schema<IUserDocument>(
   {
     firstName: {
       type: String,
@@ -13,16 +15,14 @@ const UserSchema = new Schema(
     },
     email: {
       type: String,
-      unique: [true, "Email already exists"],
+      unique: true,
       required: [true, "Email is required"],
     },
     password: {
       type: String,
     },
-    username: {
+    googleId: {
       type: String,
-      unique: [true, "Username must be unique"],
-      required: [true, "Username is required"],
     },
     image: {
       type: String,
@@ -37,6 +37,8 @@ const UserSchema = new Schema(
   }
 );
 
-const User = models.User || model("User", UserSchema);
+const User =
+  (models?.User as unknown as Model<IUserDocument>) ||
+  model<IUserDocument>("User", UserSchema);
 
 export default User;

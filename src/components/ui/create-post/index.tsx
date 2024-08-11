@@ -3,8 +3,12 @@ import { ChangeEvent, useState } from "react";
 import { Button } from "../button";
 import { Textarea } from "../textarea";
 import { useCreatePostMutation } from "@/utils/mutations/posts.mutations";
-
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 function CreatePost() {
+  const router = useRouter();
+  const { data: session } = useSession();
   const { mutateAsync: createPost, isPending: isCreatePostLoading } =
     useCreatePostMutation();
   const [content, setContent] = useState("");
@@ -13,9 +17,13 @@ function CreatePost() {
   };
 
   const handleCreatePost = async () => {
+    if (!session) {
+      toast.error("Please login to create a post");
+      return router.replace("/signin");
+    }
     await createPost({
       content,
-      authorId: "66ae8e47bdec180219c9435f",
+      email: session?.user?.email as string,
     });
     setContent("");
   };

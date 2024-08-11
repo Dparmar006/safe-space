@@ -5,8 +5,10 @@ export interface IUser {
   firstName: string;
   lastName: string;
   email: string;
+  googleId?: string;
   password: string;
   username: string;
+  image?: string;
   isOnline: boolean;
   createdAt: string;
   updatedAt: string;

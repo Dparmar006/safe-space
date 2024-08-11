@@ -5,11 +5,12 @@ import { handlePagination } from "@/utils";
 import { connectToDB } from "@/utils/database";
 import { ObjectId } from "mongodb";
 import { sendResponse } from "@/utils/apiHelper";
+import User from "@/models/user";
 
 const postValidationSchema = Yup.object({
   content: Yup.string(),
-  // images: Yup.array().items(Yup.string()),
-  // authorId: Yup.string().typeError("Please pass valid objectId").required(),
+  // email: Yup.array().items(Yup.string()),
+  email: Yup.string().typeError("Please pass email").required(),
 });
 
 export async function POST(req: NextRequest) {
@@ -17,7 +18,10 @@ export async function POST(req: NextRequest) {
     const reqBody = await req.json();
     await postValidationSchema.validate(reqBody);
     await connectToDB();
-    const response = await Post.create(reqBody);
+    const user = await User.findOne({ email: reqBody.email });
+    if (!user) return sendResponse(401, "User not found");
+
+    const response = await Post.create({ ...reqBody, authorId: user.id });
     return sendResponse(201, "Post created successfully", {
       data: response,
     });

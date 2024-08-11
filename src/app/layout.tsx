@@ -1,19 +1,19 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Toaster } from "@/components/ui/toaster";
+import { Toaster } from "sonner";
 import ThemeProvider from "@/components/ui/ThemeProvider";
 const inter = Inter({ subsets: ["latin"] });
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import ReactQueryProvider from "@/components/providers/ReactQueryProvider";
-
+import { DEFAULT_SITE_DESCRIPTION } from "@/utils/constants";
+import { SessionProvider as NextSessionProvider } from "next-auth/react";
 export const metadata: Metadata = {
   title: "Find your community, your way, with Untold.",
-  description:
-    "Experience a social media platform like no other, where your preferences and interests take center stage. With Untold, you're in control. Discover, connect, and share in an environment designed exclusively for you.",
+  description: DEFAULT_SITE_DESCRIPTION,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -21,13 +21,15 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} min-h-screen`}>
-        <ReactQueryProvider>
-          <ThemeProvider>
-            {children}
-            <Toaster />
-          </ThemeProvider>
-          <ReactQueryDevtools initialIsOpen={false} />
-        </ReactQueryProvider>
+        <NextSessionProvider>
+          <ReactQueryProvider>
+            <ThemeProvider>
+              {children}
+              <Toaster />
+            </ThemeProvider>
+            <ReactQueryDevtools initialIsOpen={false} />
+          </ReactQueryProvider>
+        </NextSessionProvider>
       </body>
     </html>
   );

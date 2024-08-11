@@ -1,4 +1,4 @@
-import { Schema, model, Document, models } from "mongoose";
+import { Schema, model, Document, models, Model } from "mongoose";
 import { IPost } from "@/types/post.types";
 
 type IPostsSchema = IPost & Document;
@@ -23,6 +23,8 @@ const PostsSchema = new Schema<IPostsSchema>(
   }
 );
 
-const Post = models.Post || model("Post", PostsSchema);
+const Post =
+  (models.Post as unknown as Model<IPostsSchema>) ||
+  model<IPostsSchema>("Post", PostsSchema);
 
 export default Post;
