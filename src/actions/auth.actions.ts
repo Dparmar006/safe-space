@@ -75,10 +75,7 @@ export const signInViaGoogle = async () => {
   try {
     await signIn("google");
   } catch (err) {
-    console.log(err);
     const error = err as CredentialsSignin;
     return error.cause;
-  } finally {
-    redirect("/");
   }
 };

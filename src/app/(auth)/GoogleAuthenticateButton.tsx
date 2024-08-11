@@ -3,16 +3,26 @@
 import { signInViaGoogle } from "@/actions/auth.actions";
 import { Icons } from "@/components/Icons";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const GoogleAuthenticateButton = () => {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
   return (
     <form
       action={async () => {
         setIsLoading(true);
-        await signInViaGoogle();
+
+        const error = await signInViaGoogle();
+        if (!error) {
+          toast.success("Welcome abord", {});
+          router.refresh();
+        } else {
+          toast.error(String(error), {});
+        }
         setIsLoading(false);
       }}
     >

@@ -15,7 +15,6 @@ function CreatePost() {
   const handleContentChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setContent(event.target.value);
   };
-
   const handleCreatePost = async () => {
     if (!session) {
       toast.error("Please login to create a post");
