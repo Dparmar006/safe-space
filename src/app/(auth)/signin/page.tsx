@@ -1,13 +1,8 @@
 import { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 
-import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/button";
 import { UserSignInForm } from "./UserSignInForm";
 import { DEFAULT_SITE_DESCRIPTION } from "@/utils/constants";
-import { auth } from "@/auth";
-import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Signin",
@@ -15,8 +10,6 @@ export const metadata: Metadata = {
 };
 
 export default async function AuthenticationPage() {
-  const session = await auth();
-  if (session) redirect("/");
   return (
     <>
       {/* <div className="md:hidden">

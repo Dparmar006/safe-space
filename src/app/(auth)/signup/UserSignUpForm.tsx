@@ -6,11 +6,11 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/Icons";
 import { useState } from "react";
-import { signInViaGoogle, signUpAction } from "@/actions/auth.actions";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import GoogleAuthenticateButton from "../GoogleAuthenticateButton";
+import { signIn } from "next-auth/react";
 
 interface UserSignInFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -24,7 +24,7 @@ export function UserSignInForm({ className, ...props }: UserSignInFormProps) {
         action={async (formData) => {
           setIsLoading(true);
           const toastId = toast.loading("Loggin in...");
-          const error = await signUpAction(formData);
+          const error = await signIn("credentials", {});
           setIsLoading(false);
           if (!error) {
             toast.success("Login successful", {

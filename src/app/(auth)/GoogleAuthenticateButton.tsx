@@ -1,11 +1,11 @@
 "use client";
 
-import { signInViaGoogle } from "@/actions/auth.actions";
 import { Icons } from "@/components/Icons";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 const GoogleAuthenticateButton = () => {
   const router = useRouter();
@@ -15,8 +15,12 @@ const GoogleAuthenticateButton = () => {
     <form
       action={async () => {
         setIsLoading(true);
-
-        const error = await signInViaGoogle();
+        debugger;
+        const error = await signIn("google", {
+          redirect: true,
+          callbackUrl: "/",
+        });
+        console.log(error);
         if (!error) {
           toast.success("Welcome abord", {});
           router.refresh();
