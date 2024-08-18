@@ -1,13 +1,11 @@
 import { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 
-import { auth } from "@/auth";
-import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import { DEFAULT_SITE_DESCRIPTION } from "@/utils/constants";
 import { redirect } from "next/navigation";
 import { UserSignInForm } from "./UserSignUpForm";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/auth";
 
 export const metadata: Metadata = {
   title: "Signup",
@@ -15,7 +13,7 @@ export const metadata: Metadata = {
 };
 
 export default async function AuthenticationPage() {
-  const session = await auth();
+  const session = await getServerSession(authOptions);
   if (session) redirect("/");
   return (
     <>

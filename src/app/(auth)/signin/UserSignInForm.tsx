@@ -20,7 +20,7 @@ export function UserSignInForm({ className, ...props }: UserSignInFormProps) {
 
   return (
     <div className={cn("grid gap-6", className)} {...props}>
-      <form
+      {/* <form
         action={async (formData) => {
           setIsLoading(true);
           const toastId = toast.loading("Loggin in...");
@@ -78,7 +78,7 @@ export function UserSignInForm({ className, ...props }: UserSignInFormProps) {
             Sign In with Email
           </Button>
         </div>
-      </form>
+      </form> */}
       <div className="relative">
         <div className="absolute inset-0 flex items-center">
           <span className="w-full border-t" />

@@ -3,6 +3,9 @@ import Link from "next/link";
 
 import { UserSignInForm } from "./UserSignInForm";
 import { DEFAULT_SITE_DESCRIPTION } from "@/utils/constants";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+import { authOptions } from "@/auth";
 
 export const metadata: Metadata = {
   title: "Signin",
@@ -10,6 +13,8 @@ export const metadata: Metadata = {
 };
 
 export default async function AuthenticationPage() {
+  const session = await getServerSession(authOptions);
+  if (session) redirect("/");
   return (
     <>
       {/* <div className="md:hidden">
