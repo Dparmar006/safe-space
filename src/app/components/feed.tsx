@@ -4,6 +4,7 @@ import React from "react";
 import {
   AlertCircle,
   Archive,
+  File,
   Inbox,
   MessagesSquare,
   ShoppingCart,
@@ -84,7 +85,8 @@ export function Feed({
           }}
           className={cn(
             isCollapsed &&
-              "min-w-[50px] transition-all duration-300 ease-in-out"
+              "min-w-[50px] transition-all duration-300 ease-in-out",
+            "hidden md:block"
           )}
         >
           <div
@@ -105,36 +107,12 @@ export function Feed({
                 icon: Inbox,
                 variant: "default",
               },
-              // {
-              //   title: "Drafts",
-              //   label: "9",
-              //   icon: File,
-              //   variant: "ghost",
-              // },
-              // {
-              //   title: "Sent",
-              //   label: "",
-              //   icon: Send,
-              //   variant: "ghost",
-              // },
-              // {
-              //   title: "Junk",
-              //   label: "23",
-              //   icon: ArchiveX,
-              //   variant: "ghost",
-              // },
-              // {
-              //   title: "Trash",
-              //   label: "",
-              //   icon: Trash2,
-              //   variant: "ghost",
-              // },
-              // {
-              //   title: "Archive",
-              //   label: "",
-              //   icon: Archive,
-              //   variant: "ghost",
-              // },
+              {
+                title: "Drafts",
+                label: "0",
+                icon: File,
+                variant: "ghost",
+              },
             ]}
           />
           <Separator />
