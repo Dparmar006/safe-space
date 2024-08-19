@@ -10,8 +10,11 @@ import { useInView } from "react-intersection-observer";
 import { Skeleton } from "@/components/ui/skeleton";
 import CreatePost from "@/components/ui/create-post";
 import { useGetPostsQuery } from "@/utils/queries/posts.queries";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useSession } from "next-auth/react";
 
 export function PostsList() {
+  const { data: session } = useSession();
   const [selectedPost, setSelectedPost] = useSelectedPost();
   const [ref, inView] = useInView();
   const {
@@ -68,6 +71,12 @@ export function PostsList() {
                   <div className="flex w-full flex-col gap-1">
                     <div className="flex items-center">
                       <div className="flex items-center gap-2">
+                        <Avatar>
+                          <AvatarImage src={post.user.image} />
+                          <AvatarFallback>
+                            {post.user.firstName[0]}
+                          </AvatarFallback>
+                        </Avatar>
                         <div className="font-semibold">
                           {post.user.firstName} {post.user.lastName}
                         </div>

@@ -4,14 +4,9 @@ import React from "react";
 import {
   AlertCircle,
   Archive,
-  ArchiveX,
-  File,
   Inbox,
   MessagesSquare,
-  Search,
-  Send,
   ShoppingCart,
-  Trash2,
   Users2,
 } from "lucide-react";
 
@@ -49,7 +44,6 @@ interface MailProps {
 export function Feed({
   accounts,
   initialPosts,
-  totalCount = 0,
   defaultLayout = [265, 440, 655],
   defaultCollapsed = false,
   navCollapsedSize,

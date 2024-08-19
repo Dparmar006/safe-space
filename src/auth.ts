@@ -3,8 +3,9 @@ import CredentialProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import User from "@/models/user";
 import { connectToDB } from "@/utils/database";
+import { AuthOptions } from "next-auth";
 
-export const authOptions = {
+export const authOptions: AuthOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -50,5 +51,33 @@ export const authOptions = {
   ],
   pages: {
     signIn: "/signin",
+  },
+  callbacks: {
+    async signIn({ user, account, profile, email, credentials }) {
+      await connectToDB();
+      const userExists = await User.findOne({ email: user.email });
+
+      if (!userExists) {
+        await User.create({
+          firstName: profile?.name?.split(" ")[0],
+          lastName: profile?.name?.split(" ")[1],
+          email: profile?.email,
+          image: profile?.image,
+          googleId: account?.providerAccountId,
+        });
+      }
+      return true;
+    },
+    async session({ session, token, user }) {
+      await connectToDB();
+
+      await User.findOneAndUpdate(
+        { email: session.user?.email },
+        {
+          image: session.user?.image,
+        }
+      );
+      return session;
+    },
   },
 };

@@ -75,6 +75,7 @@ export async function GET(req: NextRequest) {
           "user.lastName": 1,
           "user.isOnline": 1,
           "user.username": 1,
+          "user.image": 1,
         },
       },
       {
