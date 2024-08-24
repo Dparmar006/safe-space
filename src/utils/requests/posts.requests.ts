@@ -1,6 +1,6 @@
 import { ServerResponse, apiRequest } from "../apiHelper";
 import { IFeedPost } from "@/types/post.types";
-
+import { ObjectId } from "mongodb";
 export interface ICreatePostPayload {
   content: string;
   email: string;
@@ -23,5 +23,13 @@ export const getPostRequest = async (
   >("api/posts", "GET", null, {
     params: { page: pageParam, username },
   });
+  return response.data;
+};
+
+export interface IDeletePostPayload {
+  _id: ObjectId;
+}
+export const deletePostRequest = async (payload: IDeletePostPayload) => {
+  const response = await apiRequest("api/posts", "DELETE", payload);
   return response.data;
 };

@@ -104,3 +104,25 @@ export async function GET(req: NextRequest) {
     );
   }
 }
+
+export async function DELETE(req: NextRequest) {
+  try {
+    const reqBody = await req.json();
+    await connectToDB();
+
+    await Post.deleteOne({ _id: reqBody._id });
+    return sendResponse(200, "Post deleted successfully");
+  } catch (err) {
+    const error = err as Error;
+    console.log(error);
+    return NextResponse.json(
+      {
+        message: error.message,
+        data: null,
+      },
+      {
+        status: error.name === "ValidationError" ? 400 : 500,
+      }
+    );
+  }
+}
