@@ -3,16 +3,17 @@
 import { Fragment, useEffect } from "react";
 
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useSelectedPost } from "../store/use-post";
 import { useInView } from "react-intersection-observer";
 import { Skeleton } from "@/components/ui/skeleton";
 import CreatePost from "@/components/ui/create-post";
 import { useGetPostsQuery } from "@/utils/queries/posts.queries";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useSession } from "next-auth/react";
 import FeedPost from "@/components/FeedPost";
 
-export function PostsList() {
+interface Props {
+  username?: string;
+  shouldAllowCreatePost?: boolean;
+}
+export function PostsList({ username, shouldAllowCreatePost = false }: Props) {
   const [ref, inView] = useInView();
   const {
     data,
@@ -22,7 +23,7 @@ export function PostsList() {
     isFetching,
     isFetchingNextPage,
     status,
-  } = useGetPostsQuery();
+  } = useGetPostsQuery(username);
 
   useEffect(() => {
     if (inView) {
@@ -33,22 +34,28 @@ export function PostsList() {
   if (status === "pending")
     return (
       <ScrollArea className="h-screen">
-        <Skeleton className="h-[60px] rounded-lg mx-4 my-3" />
-        <Skeleton className="h-[36px] rounded-lg mx-4 my-3" />
+        {shouldAllowCreatePost && (
+          <>
+            <Skeleton className="h-[60px] rounded-lg my-3 mr-3" />
+            <Skeleton className="h-[36px] rounded-lg my-3 mr-3" />
+          </>
+        )}
 
         {Array.from({ length: 12 }).map((_, index) => (
-          <Skeleton key={index} className="h-[100px] rounded-lg mx-4 my-2" />
+          <Skeleton key={index} className="h-[100px] rounded-lg my-2 mr-3" />
         ))}
       </ScrollArea>
     );
   if (status === "error") return <p>Error: {error.message}</p>;
   return (
     <>
-      <div className="flex flex-col gap-2 p-4 pt-0">
-        <CreatePost />
-      </div>
-      <ScrollArea className="h-screen">
-        <div className="flex flex-col gap-2 p-4 pt-0">
+      {shouldAllowCreatePost && (
+        <div className="flex flex-col gap-2 pt-0">
+          <CreatePost />
+        </div>
+      )}
+      <ScrollArea className="h-screen mt-4 pr-3">
+        <div className="flex flex-col gap-2 pt-0">
           {data.pages.map((group, i) => (
             <Fragment key={i}>
               {group.data.posts.map((post) => (

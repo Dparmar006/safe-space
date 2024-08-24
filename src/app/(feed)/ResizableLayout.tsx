@@ -34,11 +34,7 @@ interface Props {
   defaultLayout: any;
   defaultCollapsed: any;
 }
-const ResizableLayout: React.FC<Props> = ({
-  children,
-  defaultLayout,
-  defaultCollapsed,
-}) => {
+const ResizableLayout: React.FC<Props> = ({ children, defaultCollapsed }) => {
   const [isCollapsed, setIsCollapsed] = React.useState(defaultCollapsed);
   const [uiState] = useAtom(uiAtom);
 
@@ -51,10 +47,10 @@ const ResizableLayout: React.FC<Props> = ({
             sizes
           )}`;
         }}
-        className="h-full max-h-screen items-stretch"
+        className="h-full max-h-screen min-h-screen items-stretch"
       >
         <ResizablePanel
-          defaultSize={defaultLayout[0]}
+          defaultSize={20}
           collapsedSize={navCollapsedSize}
           collapsible={true}
           minSize={15}
@@ -94,12 +90,14 @@ const ResizableLayout: React.FC<Props> = ({
                 label: `${uiState.postsCount || 0}`,
                 icon: Inbox,
                 variant: "default",
+                href: "/",
               },
               {
                 title: "Drafts",
                 label: "0",
                 icon: File,
                 variant: "ghost",
+                href: "",
               },
             ]}
           />
@@ -112,36 +110,52 @@ const ResizableLayout: React.FC<Props> = ({
                 label: "0",
                 icon: Users2,
                 variant: "ghost",
+                href: "",
               },
               {
                 title: "Updates",
                 label: "0",
                 icon: AlertCircle,
                 variant: "ghost",
+                href: "",
               },
               {
                 title: "Forums",
                 label: "0",
                 icon: MessagesSquare,
                 variant: "ghost",
+                href: "",
               },
               {
                 title: "Shopping",
                 label: "0",
                 icon: ShoppingCart,
                 variant: "ghost",
+                href: "",
               },
               {
                 title: "Promotions",
                 label: "0",
                 icon: Archive,
                 variant: "ghost",
+                href: "",
               },
             ]}
           />
         </ResizablePanel>
         <ResizableHandle withHandle />
-        {children}
+        <ResizablePanel className="p-2 w-full" defaultSize={200} minSize={30}>
+          {children}
+        </ResizablePanel>
+        <ResizableHandle withHandle />
+        <ResizablePanel
+          className="p-2"
+          defaultSize={35}
+          minSize={20}
+          maxSize={35}
+        >
+          More!
+        </ResizablePanel>
       </ResizablePanelGroup>
     </TooltipProvider>
   );

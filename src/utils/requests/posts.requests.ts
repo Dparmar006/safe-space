@@ -14,11 +14,14 @@ export interface IGetPostPayload {
   page: number;
   limit: number;
 }
-export const getPostRequest = async ({ pageParam }: { pageParam: number }) => {
+export const getPostRequest = async (
+  { pageParam }: { pageParam: number },
+  username?: string
+) => {
   const response = await apiRequest<
     ServerResponse<{ posts: IFeedPost[]; totalCount: number; nextPage: number }>
   >("api/posts", "GET", null, {
-    params: { page: pageParam },
+    params: { page: pageParam, username },
   });
   return response.data;
 };

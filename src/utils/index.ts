@@ -22,5 +22,6 @@ export const handlePagination = (request: NextRequest) => {
     searchKey,
     searchValue,
     filter,
+    searchParams,
   };
 };

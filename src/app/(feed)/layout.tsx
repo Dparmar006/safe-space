@@ -15,6 +15,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const layout = cookies().get("react-resizable-panels:layout");
+  console.log(layout);
   const collapsed = cookies().get("react-resizable-panels:collapsed");
 
   const defaultLayout = layout ? JSON.parse(layout.value) : undefined;

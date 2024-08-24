@@ -106,12 +106,14 @@ export function Feed({
                 label: `${uiState.postsCount || 0}`,
                 icon: Inbox,
                 variant: "default",
+                href: "/",
               },
               {
                 title: "Drafts",
                 label: "0",
                 icon: File,
                 variant: "ghost",
+                href: "",
               },
             ]}
           />
@@ -124,30 +126,35 @@ export function Feed({
                 label: "0",
                 icon: Users2,
                 variant: "ghost",
+                href: "",
               },
               {
                 title: "Updates",
                 label: "0",
                 icon: AlertCircle,
                 variant: "ghost",
+                href: "",
               },
               {
                 title: "Forums",
                 label: "0",
                 icon: MessagesSquare,
                 variant: "ghost",
+                href: "",
               },
               {
                 title: "Shopping",
                 label: "0",
                 icon: ShoppingCart,
                 variant: "ghost",
+                href: "",
               },
               {
                 title: "Promotions",
                 label: "0",
                 icon: Archive,
                 variant: "ghost",
+                href: "",
               },
             ]}
           />

@@ -4,6 +4,7 @@ import React from "react";
 import { cn } from "@/lib/utils";
 import { formatDistanceToNow } from "date-fns";
 import FeedAvatar from "./FeedAvatar";
+import Link from "next/link";
 
 interface Props {
   post: IFeedPost;
@@ -28,9 +29,9 @@ const FeedPost: React.FC<Props> = ({ post }) => {
         <div className="flex items-center">
           <div className="flex items-center gap-2">
             <FeedAvatar user={post.user} />
-            <div className="font-semibold">
+            <Link href={`/${post.user.username}`} className="font-semibold">
               {post.user.firstName} {post.user.lastName}
-            </div>
+            </Link>
           </div>
           <div
             className={cn(

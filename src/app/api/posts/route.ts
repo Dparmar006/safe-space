@@ -6,6 +6,7 @@ import { connectToDB } from "@/utils/database";
 import { ObjectId } from "mongodb";
 import { sendResponse } from "@/utils/apiHelper";
 import User from "@/models/user";
+import { PipelineStage } from "mongoose";
 
 const postValidationSchema = Yup.object({
   content: Yup.string(),
@@ -42,14 +43,11 @@ export async function POST(req: NextRequest) {
 
 export async function GET(req: NextRequest) {
   try {
-    const pagination = handlePagination(req);
+    const { searchParams, ...pagination } = handlePagination(req);
+    const username = searchParams.get("username");
     await connectToDB();
-    const filter = { ...pagination.filter };
-    if (pagination.searchKey === "authorId") {
-      filter[pagination.searchKey] = new ObjectId(
-        pagination.searchValue as string
-      ).toString();
-    }
+    const filter = {};
+
     const totalCount = await Post.countDocuments({});
 
     const response = await Post.aggregate([
@@ -66,20 +64,24 @@ export async function GET(req: NextRequest) {
         },
       },
       {
+        $unwind: "$user",
+      },
+      ...(username
+        ? [
+            {
+              $match: {
+                "user.username": username,
+              },
+            } as PipelineStage,
+          ]
+        : []),
+      {
         $project: {
           _id: 1,
           content: 1,
           createdAt: 1,
           user: 1,
-          // "user.firstName": 1,
-          // "user.lastName": 1,
-          // "user.isOnline": 1,
-          // "user.username": 1,
-          // "user.image": 1,
         },
-      },
-      {
-        $unwind: "$user",
       },
     ]);
 

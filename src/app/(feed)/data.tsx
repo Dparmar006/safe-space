@@ -175,7 +175,7 @@ export type Mail = (typeof mails)[number];
 
 export const accounts = [
   {
-    label: "SAnonymous",
+    label: "Anonymous",
     email: "@anonymous",
     icon: (
       <svg
