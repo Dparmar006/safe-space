@@ -143,11 +143,11 @@ const ResizableLayout: React.FC<Props> = ({ children, defaultCollapsed }) => {
             ]}
           />
         </ResizablePanel>
-        <ResizableHandle withHandle />
+        <ResizableHandle withHandle className="hidden md:flex" />
         <ResizablePanel className="p-2 w-full" defaultSize={200} minSize={30}>
           {children}
         </ResizablePanel>
-        <ResizableHandle withHandle />
+        <ResizableHandle withHandle className="hidden md:flex" />
         <ResizablePanel
           className="p-2 hidden md:block"
           defaultSize={35}
