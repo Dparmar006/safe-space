@@ -1,7 +1,10 @@
+"use server";
+
 import Post from "@/models/post.model";
 import { IFeedPost, IGetServerActionPayload } from "@/types/post.types";
 import { DEFAULT_API_LIMIT, DEFAULT_API_PAGE } from "@/utils/constants";
 import { connectToDB } from "@/utils/database";
+import { ObjectId } from "mongodb";
 
 export async function getPostsAction(params?: IGetServerActionPayload) {
   try {
@@ -46,3 +49,12 @@ export async function getPostsAction(params?: IGetServerActionPayload) {
     return { posts: [], totalCount: 0 };
   }
 }
+
+export const deletePostAction = async (postId: ObjectId) => {
+  try {
+    await Post.deleteOne({ _id: postId });
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
