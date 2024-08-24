@@ -52,7 +52,7 @@ export async function getPostsAction(params?: IGetServerActionPayload) {
 
 export const deletePostAction = async (postId: ObjectId) => {
   try {
-    await Post.deleteOne({ _id: postId });
+    return await Post.deleteOne({ _id: postId });
   } catch (error) {
     console.log(error);
     throw error;

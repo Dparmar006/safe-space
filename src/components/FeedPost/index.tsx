@@ -21,10 +21,10 @@ const FeedPost: React.FC<Props> = ({ post }) => {
   const queryClient = useQueryClient();
 
   const handlePostDelete = async (_id: ObjectId) => {
-    const id = toast.loading("Deleting..");
+    const id = toast.loading("Deleting...");
     try {
       await deletePostAction(post._id);
-      await queryClient.invalidateQueries({
+      queryClient.invalidateQueries({
         queryKey: ["posts"],
       });
       toast.success("Post deleted", {
