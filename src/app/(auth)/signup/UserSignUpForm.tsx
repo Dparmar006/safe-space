@@ -1,16 +1,11 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import { Icons } from "@/components/Icons";
 import { useState } from "react";
-import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import GoogleAuthenticateButton from "../GoogleAuthenticateButton";
-import { signIn } from "next-auth/react";
+import SpotifyAuthenticateButton from "../SpotifyAuthenticateButton";
 
 interface UserSignInFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -122,6 +117,7 @@ export function UserSignInForm({ className, ...props }: UserSignInFormProps) {
         </div>
       </div>
       <GoogleAuthenticateButton />
+      <SpotifyAuthenticateButton />
       <p className="text-sm text-muted-foreground">
         Already have an account?
         <Link href="/signin" className="ml-2 underline">

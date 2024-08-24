@@ -1,4 +1,5 @@
 import GoogleProvider from "next-auth/providers/google";
+import SpotifyProvider from "next-auth/providers/spotify";
 import CredentialProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import User from "@/models/user";
@@ -11,6 +12,10 @@ export const authOptions: AuthOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    }),
+    SpotifyProvider({
+      clientId: process.env.SPOTIFY_CLIENT_ID!,
+      clientSecret: process.env.SPOTIFY_CLIENT_SECRET!,
     }),
     CredentialProvider({
       name: "Credentials",

@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import GoogleAuthenticateButton from "../GoogleAuthenticateButton";
 import { signIn } from "next-auth/react";
+import SpotifyAuthenticateButton from "../SpotifyAuthenticateButton";
 
 interface UserSignInFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -90,6 +91,7 @@ export function UserSignInForm({ className, ...props }: UserSignInFormProps) {
         </div>
       </div>
       <GoogleAuthenticateButton />
+      <SpotifyAuthenticateButton />
       <p className="text-sm text-muted-foreground">
         Dont have an account?
         <Link href="/signup" className="ml-2 underline">

@@ -7,7 +7,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 
-const GoogleAuthenticateButton = () => {
+const SpotifyAuthenticateButton = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -15,7 +15,7 @@ const GoogleAuthenticateButton = () => {
     <form
       action={async () => {
         setIsLoading(true);
-        const error = await signIn("google", {
+        const error = await signIn("spotify", {
           redirect: true,
           callbackUrl: "/",
         });
@@ -37,12 +37,12 @@ const GoogleAuthenticateButton = () => {
         {isLoading ? (
           <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
         ) : (
-          <Icons.google className="mr-2 h-4 w-4" />
+          <Icons.music className="mr-2 h-4 w-4" />
         )}{" "}
-        Google
+        Spotify
       </Button>
     </form>
   );
 };
 
-export default GoogleAuthenticateButton;
+export default SpotifyAuthenticateButton;
