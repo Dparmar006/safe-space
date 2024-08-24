@@ -30,3 +30,5 @@ export const PROFILE_TABS = {
 
 export const DEFAULT_SITE_DESCRIPTION =
   "Experience a social media platform like no other, where your preferences and interests take center stage. With Untold, you're in control. Discover, connect, and share in an environment designed exclusively for you.";
+
+export const navCollapsedSize = 4;

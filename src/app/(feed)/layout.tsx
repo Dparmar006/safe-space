@@ -1,14 +1,9 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-import { Toaster } from "sonner";
-import ThemeProvider from "@/components/ui/ThemeProvider";
-const inter = Inter({ subsets: ["latin"] });
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import ReactQueryProvider from "@/components/providers/ReactQueryProvider";
 import { DEFAULT_SITE_DESCRIPTION } from "@/utils/constants";
-import NextSessionProvider from "@/components/providers/NextSessionProvider";
+import React from "react";
 
+import { cookies } from "next/headers";
+import ResizableLayout from "./ResizableLayout";
 export const metadata: Metadata = {
   title: "Find your community, your way, with Untold.",
   description: DEFAULT_SITE_DESCRIPTION,
@@ -19,20 +14,18 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const layout = cookies().get("react-resizable-panels:layout");
+  const collapsed = cookies().get("react-resizable-panels:collapsed");
+
+  const defaultLayout = layout ? JSON.parse(layout.value) : undefined;
+  const defaultCollapsed = collapsed ? JSON.parse(collapsed.value) : undefined;
+
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} min-h-screen`}>
-        <NextSessionProvider>
-          <ReactQueryProvider>
-            <ThemeProvider>
-              ABCD
-              {children}
-              <Toaster />
-            </ThemeProvider>
-            <ReactQueryDevtools initialIsOpen={false} />
-          </ReactQueryProvider>
-        </NextSessionProvider>
-      </body>
-    </html>
+    <ResizableLayout
+      defaultCollapsed={defaultCollapsed}
+      defaultLayout={defaultLayout}
+    >
+      {children}
+    </ResizableLayout>
   );
 }
