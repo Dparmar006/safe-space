@@ -1,8 +1,8 @@
 import { cookies } from "next/headers";
 import Image from "next/image";
 
-import { Feed } from "@/app/components/feed";
-import { accounts } from "@/app/data";
+import { Feed } from "@/components/feed";
+import { accounts } from "@/app/(feed)/data";
 import { getPostsAction } from "@/actions/posts.actions";
 
 export default async function MailPage() {

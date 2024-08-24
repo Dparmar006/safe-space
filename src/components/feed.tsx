@@ -20,7 +20,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { useSelectedPost } from "../use-post";
+import { useSelectedPost } from "../store/use-post";
 import { AccountSwitcher } from "./account-switcher";
 import { Nav } from "./nav";
 import { PostsList } from "./posts-list";

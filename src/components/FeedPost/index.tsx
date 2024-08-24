@@ -1,4 +1,4 @@
-import { useSelectedPost } from "@/app/use-post";
+import { useSelectedPost } from "@/store/use-post";
 import { IFeedPost } from "@/types/post.types";
 import React from "react";
 import { cn } from "@/lib/utils";

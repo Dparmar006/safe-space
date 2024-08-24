@@ -3,7 +3,7 @@
 import { Fragment, useEffect } from "react";
 
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useSelectedPost } from "../use-post";
+import { useSelectedPost } from "../store/use-post";
 import { useInView } from "react-intersection-observer";
 import { Skeleton } from "@/components/ui/skeleton";
 import CreatePost from "@/components/ui/create-post";

@@ -68,8 +68,6 @@ export const authOptions: AuthOptions = {
             profile?.name?.split(" ")[0] || "This person",
             "non-binary"
           ),
-          createdAt: new Date(),
-          updatedAt: new Date(),
         });
       }
       return true;
