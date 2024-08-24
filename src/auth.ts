@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 import User from "@/models/user";
 import { connectToDB } from "@/utils/database";
 import { AuthOptions } from "next-auth";
+import { generateRandomBio } from "./utils/user.utils";
 
 export const authOptions: AuthOptions = {
   providers: [
@@ -25,7 +26,6 @@ export const authOptions: AuthOptions = {
       },
 
       authorize: async (credentials, request) => {
-        console.log("HEYYYYAAA");
         await connectToDB();
         const { email, password } = credentials as {
           email: string;
@@ -64,6 +64,12 @@ export const authOptions: AuthOptions = {
           email: profile?.email,
           image: profile?.image,
           googleId: account?.providerAccountId,
+          bio: generateRandomBio(
+            profile?.name?.split(" ")[0] || "This person",
+            "non-binary"
+          ),
+          createdAt: new Date(),
+          updatedAt: new Date(),
         });
       }
       return true;
@@ -75,6 +81,10 @@ export const authOptions: AuthOptions = {
         { email: session.user?.email },
         {
           image: session.user?.image,
+          bio: generateRandomBio(
+            session.user?.name || "This person",
+            "non-binary"
+          ),
         }
       );
       return session;

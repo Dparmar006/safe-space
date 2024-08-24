@@ -1,4 +1,5 @@
 import { IUser } from "@/types/user.types";
+import { generateRandomBio } from "@/utils/user.utils";
 import { Schema, model, models, Model } from "mongoose";
 
 type IUserDocument = IUser & Document;
@@ -30,6 +31,10 @@ const UserSchema = new Schema<IUserDocument>(
     isOnline: {
       type: Boolean,
       default: false,
+    },
+    bio: {
+      type: String,
+      default: generateRandomBio("This person", "non-binary"),
     },
   },
   {

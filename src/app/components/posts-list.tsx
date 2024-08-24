@@ -1,9 +1,7 @@
 "use client";
 
 import { Fragment, useEffect } from "react";
-import { formatDistanceToNow } from "date-fns";
 
-import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useSelectedPost } from "../use-post";
 import { useInView } from "react-intersection-observer";
@@ -12,10 +10,9 @@ import CreatePost from "@/components/ui/create-post";
 import { useGetPostsQuery } from "@/utils/queries/posts.queries";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useSession } from "next-auth/react";
+import FeedPost from "@/components/FeedPost";
 
 export function PostsList() {
-  const { data: session } = useSession();
-  const [selectedPost, setSelectedPost] = useSelectedPost();
   const [ref, inView] = useInView();
   const {
     data,
@@ -55,66 +52,7 @@ export function PostsList() {
           {data.pages.map((group, i) => (
             <Fragment key={i}>
               {group.data.posts.map((post) => (
-                <button
-                  key={post._id.toString()}
-                  className={cn(
-                    "flex flex-col items-start gap-2 rounded-lg border p-3 text-left text-sm transition-all hover:bg-accent",
-                    selectedPost.selected === post._id && "bg-muted"
-                  )}
-                  onClick={() =>
-                    setSelectedPost({
-                      ...selectedPost,
-                      selected: post._id,
-                    })
-                  }
-                >
-                  <div className="flex w-full flex-col gap-1">
-                    <div className="flex items-center">
-                      <div className="flex items-center gap-2">
-                        <Avatar>
-                          <AvatarImage src={post.user.image} />
-                          <AvatarFallback>
-                            {post.user.firstName[0]}
-                          </AvatarFallback>
-                        </Avatar>
-                        <div className="font-semibold">
-                          {post.user.firstName} {post.user.lastName}
-                        </div>
-                        {/* {!item.read && (
-                    <span className="flex h-2 w-2 rounded-full bg-blue-600" />
-                  )} */}
-                      </div>
-                      <div
-                        className={cn(
-                          "ml-auto text-xs",
-                          selectedPost.selected === post._id
-                            ? "text-foreground"
-                            : "text-muted-foreground"
-                        )}
-                      >
-                        {formatDistanceToNow(new Date(post.createdAt), {
-                          addSuffix: true,
-                        })}
-                      </div>
-                    </div>
-                    <div className="text-xs font-medium">
-                      Community
-                      {/* {item.subject} */}
-                    </div>
-                  </div>
-                  <div className="line-clamp-2 text-xs text-muted-foreground">
-                    {post.content.substring(0, 300)}
-                  </div>
-                  {/* {item.labels.length ? (
-              <div className="flex items-center gap-2">
-                {item.labels.map((label) => (
-                  <Badge key={label} variant={getBadgeVariantFromLabel(label)}>
-                    {label}
-                  </Badge>
-                ))}
-              </div>
-            ) : null} */}
-                </button>
+                <FeedPost post={post} key={post._id.toString()} />
               ))}
             </Fragment>
           ))}

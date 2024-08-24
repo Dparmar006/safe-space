@@ -10,6 +10,7 @@ export interface IUser {
   username: string;
   image?: string;
   isOnline: boolean;
+  bio: string;
   createdAt: string;
   updatedAt: string;
   __v: number;

@@ -3,7 +3,6 @@ import { IPost } from "@/types/post.types";
 
 type IPostsSchema = IPost & Document;
 
-// Define the schema itself
 const PostsSchema = new Schema<IPostsSchema>(
   {
     content: {
