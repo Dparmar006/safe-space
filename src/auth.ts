@@ -74,17 +74,13 @@ export const authOptions: AuthOptions = {
       }
       return true;
     },
-    async session({ session, token, user }) {
+    async session({ session }) {
       await connectToDB();
 
       const dbUser = await User.findOneAndUpdate(
         { email: session.user?.email },
         {
           image: session.user?.image,
-          bio: generateRandomBio(
-            session.user?.name || "This person",
-            "non-binary"
-          ),
         }
       );
       if (!dbUser?.bio) {
