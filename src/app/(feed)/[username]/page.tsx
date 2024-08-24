@@ -5,10 +5,80 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
 import { PostsList } from "@/components/posts-list";
+import { Metadata, ResolvingMetadata } from "next";
 
 interface Props {
   params: { username: string };
 }
+
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const { username } = params;
+  await connectToDB();
+  const user = await User.findOne({ username });
+  const previousImages = (await parent).openGraph?.images || [];
+  // Get previous images from parent metadata
+
+  // Define default metadata values
+  const defaultTitle = "Discover Your Safe Haven in the Digital World";
+  const defaultDescription =
+    "Join Safe Space to experience privacy, personalized content, and a supportive community.";
+  const defaultImage = "https://safe-space-app.vercel.app/default-image.jpg"; // Replace with your default image URL
+  const siteName = "Safe Space";
+  const defaultLocale = "en_US";
+  const defaultKeywords = [
+    "Safe Space",
+    "Privacy",
+    "Community",
+    "Digital Haven",
+  ];
+  const defaultViewport = "width=device-width, initial-scale=1";
+  const defaultCharset = "UTF-8";
+
+  // Generate metadata based on the user data
+  const metadata: Metadata = {
+    title: user
+      ? `${user.firstName} ${user.lastName} | Safe Space`
+      : defaultTitle,
+    description: user ? user.bio : defaultDescription,
+    openGraph: {
+      title: user
+        ? `${user.firstName} ${user.lastName} | Safe Space`
+        : defaultTitle,
+      description: user ? user.bio : defaultDescription,
+      url: `https://safe-space-app.vercel.app/user/${username}`,
+      type: "profile", // Assuming this is a user profile
+      images: user?.image
+        ? [user.image, ...previousImages]
+        : [defaultImage, ...previousImages],
+      siteName: siteName,
+      locale: defaultLocale,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: user
+        ? `${user.firstName} ${user.lastName} | Safe Space`
+        : defaultTitle,
+      description: user ? user.bio : defaultDescription,
+      images: user?.image ? [user.image] : [defaultImage],
+    },
+    // canonical: `https://safe-space-app.vercel.app/user/${username}`,
+    robots: {
+      index: true,
+      follow: true,
+    },
+    keywords: user
+      ? [`${user.firstName}`, `${user.lastName}`, "Safe Space"]
+      : defaultKeywords,
+    viewport: defaultViewport,
+    // charset: defaultCharset,
+  };
+
+  return metadata;
+}
+
 const Page: React.FC<Props> = async ({ params }) => {
   const { username } = params;
   await connectToDB();
