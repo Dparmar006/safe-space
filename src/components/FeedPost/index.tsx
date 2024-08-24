@@ -1,3 +1,5 @@
+"use client";
+
 import { useSelectedPost } from "@/store/use-post";
 import { IFeedPost } from "@/types/post.types";
 import React from "react";
